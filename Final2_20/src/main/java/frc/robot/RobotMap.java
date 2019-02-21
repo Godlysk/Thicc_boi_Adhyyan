@@ -31,6 +31,12 @@ public class RobotMap {
   public static int BR_port = 4;
   public static int BL_port = 1;
 
+
+  public static int liftMotor_port = 5;
+
+  public static int rotateArm_port = 7;
+
   public static int steerButton = 1;
+  public static int expButton = 10;
 
 }

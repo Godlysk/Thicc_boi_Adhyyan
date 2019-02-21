@@ -27,6 +27,8 @@ public class Robot extends TimedRobot {
   public static OI oi;
   public static SubsystemVision utilvisionSubsystem;
   public static SubsystemVision visionSubsystem;
+  public static SubsystemArmLift armLiftSubsystem;
+  public static SubsystemRotateArm rotateArmSubsystem;
 //---------------------------
 
 
@@ -34,12 +36,26 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     visionSubsystem = new SubsystemVision();
     tankDriveSubsystem = new SubsystemTankDrive();
+    armLiftSubsystem = new SubsystemArmLift();
+    rotateArmSubsystem = new SubsystemRotateArm();
     oi = new OI();
   }
 
+  boolean preExpButton = false;
+  boolean ExposureSetting = true;
   
   @Override
   public void robotPeriodic() {
+    boolean tempButton = oi.joy1.getRawButton(RobotMap.expButton);
+
+    if(tempButton && !preExpButton)
+    {
+      ExposureSetting = !ExposureSetting;
+    }
+
+    preExpButton = tempButton;
+    SmartDashboard.putNumber("ExpAuto", ExposureSetting? 1.0: 0.0);
+
   }
 
 

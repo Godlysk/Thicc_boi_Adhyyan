@@ -55,7 +55,7 @@ public class SubsystemTankDrive extends Subsystem {
     double err, leftSpeed, rightSpeed;
     err = Utils.navx.getRate() - mapAngRate(zaxis);
     double p_corr = 0.1*err;
-    steer_corr+=err*0.01;
+    steer_corr += err*0.01;
     leftSpeed =  yaxis*RobotSettings.ysens + (-1*(steer_corr + p_corr));
     rightSpeed = yaxis*RobotSettings.ysens+ (steer_corr + p_corr);
 
@@ -73,9 +73,7 @@ public class SubsystemTankDrive extends Subsystem {
   double s_d_corr, s_i_corr = 0;
   double t_corr=0;
 
-  public void PIDRetardedDrive()
-  {
-
+  public void PIDRetardedDrive(){
     double yaxis = Robot.oi.getY(Robot.oi.joy1);
     double zaxis = Robot.oi.getZ(Robot.oi.joy1);
 
@@ -127,7 +125,7 @@ public class SubsystemTankDrive extends Subsystem {
 //------------------------
   public double mapAngRate(double z)
   {
-    //Map z_axis to angular rate
+    //Map z_axis to angular rate to a similia range of navx.getRate()
     return z*RobotSettings.zsens;
   }
 
