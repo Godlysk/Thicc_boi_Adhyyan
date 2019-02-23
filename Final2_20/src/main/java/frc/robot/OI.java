@@ -12,12 +12,18 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.*;
 import frc.robot.Chassis.*;
 
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
+import frc.robot.Arm.RotateArm.*;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
   Button commandSteerDriveButton;
+
+  Button button5;
 
   public Joystick joy1, joy2;
 
@@ -26,6 +32,10 @@ public class OI {
     joy2 = new Joystick(2);
     commandSteerDriveButton = new JoystickButton(joy1, RobotMap.steerButton);
     commandSteerDriveButton.whileHeld(new CommandSteerDrive());
+    button5 = new JoystickButton(joy2, 5);
+
+    button5.whileHeld(new CommandRotateArmToAngle(30));
+
   }
 
   public double getY(Joystick joy){
