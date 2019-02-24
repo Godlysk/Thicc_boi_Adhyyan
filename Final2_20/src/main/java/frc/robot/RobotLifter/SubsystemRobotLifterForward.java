@@ -5,41 +5,37 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Arm.ClawArm;
+package frc.robot.RobotLifter;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import frc.robot.RobotMap;
-import frc.robot.*;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-
 
 /**
  * Add your docs here.
  */
-public class SubsystemSolenoidArm extends Subsystem {
+public class SubsystemRobotLifterForward extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
+  WPI_TalonSRX motorLifterForward;
 
-  public DoubleSolenoid ds;
+  public SubsystemRobotLifterForward() {
+    motorLifterForward = new WPI_TalonSRX(RobotMap.robotLifterForwardMotor);
 
-  public SubsystemSolenoidArm(){
-    ds = new DoubleSolenoid(RobotMap.pistonPortFirst, RobotMap.pistonPortSecond);
   }
+
+  public void drive(double forwardSpeed) {
+    motorLifterForward.set(forwardSpeed);
+  }
+
+
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new CommandSolenoidArm());
-  }
-
-  public void open(){
-    ds.set(Value.kForward);
-  }
-
-  public void close(){
-    ds.set(Value.kReverse);
+    // Set the default command for a subsystem here.
+    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new CommandRobotLifterForward());
   }
 }

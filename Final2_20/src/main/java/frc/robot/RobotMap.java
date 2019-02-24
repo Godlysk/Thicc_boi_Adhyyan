@@ -32,11 +32,26 @@ public class RobotMap {
   public static int BL_port = 1;
 
 
-  public static int liftMotor_port = 7;
+  public static int liftMotor_port = 5;
 
-  public static int rotateArm_port = 8;
+  public static int rotateArm_port = 6;
 
-  public static int steerButton = 1;
-  public static int expButton = 10;
+  //subsystemRobotLifterup
+  public static int robotLifterUpMotor1 = 9;
+  public static int robotLifterUpMotor2 = 10;
+
+  //subsystemRobotLifterForward
+  public static int robotLifterForwardMotor = 11;
+
+  public static int pistonPortFirst = 1;
+  public static int pistonPortSecond = 4;
+
+  //Encoder Ports
+  public static int chassisEncoder_r = 0;
+  public static int chassisEncoder_l = 2;
+  public static int elevatorEncoder_l = 6;
+  public static int elevatorEncoder_r = 8;
+  // public static int rotateArmEncoder = 8;
+  public static int liftArmEncoder = 4;
 
 }

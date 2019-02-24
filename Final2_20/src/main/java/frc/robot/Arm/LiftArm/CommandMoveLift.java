@@ -24,19 +24,19 @@ public class CommandMoveLift extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    // boolean moveUpButton = Robot.oi.joy2.getRawButton(5);
-    // boolean moveDownButton = Robot.oi.joy2.getRawButton(3);
+    boolean moveUpButton = Robot.oi.joy2.getRawButton(5);
+    boolean moveDownButton = Robot.oi.joy2.getRawButton(3);
 
-    // if(moveUpButton){
-    //   Robot.armLiftSubsystem.liftMotor.set(1);
-    // }else if(moveDownButton){
-    //   Robot.armLiftSubsystem.liftMotor.set(-1);
-    // }else{
-    //   Robot.armLiftSubsystem.liftMotor.set(0);
-    // }
+    if(moveUpButton){
+      Robot.armLiftSubsystem.liftMotor.set(0.3);
+    }else if(moveDownButton){
+      Robot.armLiftSubsystem.liftMotor.set(-0.2);
+    }else{
+      Robot.armLiftSubsystem.liftMotor.set(0);
+    }
 
-    double yaxis = Robot.oi.joy2.getRawAxis(5);
-    Robot.armLiftSubsystem.liftMotor.set(yaxis*1);
+    // double yaxis = Robot.oi.joy2.getRawAxis(5);
+    // Robot.armLiftSubsystem.liftMotor.set(yaxis*1);
   }
 
   // Make this return true when this Command no longer needs to run execute()

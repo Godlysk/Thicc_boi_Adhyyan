@@ -3,22 +3,19 @@
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
-/*--------------------------------------this--------------------------------------*/
+/*----------------------------------------------------------------------------*/
 
-package frc.robot.Arm.RotateArm;
+package frc.robot.RobotLifter;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
-public class CommandRotateArmToAngle extends Command {
-  double targetAngle;
-  //4000 divided by 360
-  double encoderCountsPerDegrees = 11.11;
-  public CommandRotateArmToAngle(double desiredAngle) {
+public class CommandRobotLifterUp extends Command {
+  public CommandRobotLifterUp() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.rotateArmSubsystem);
-    targetAngle = desiredAngle;
+    requires(Robot.lifterUpSubsystem);
   }
 
   // Called just before this Command runs the first time
@@ -29,38 +26,33 @@ public class CommandRotateArmToAngle extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double actual = Robot.rotateArmSubsystem.rotEnc.get()/encoderCountsPerDegrees;
-    double error = targetAngle - actual;
-    double turningConstant = 0.03;
-    double turningSpeed = error * turningConstant; 
-    System.out.println("ERROR: " + error);
+    boolean upButton = Robot.oi.joy2.getRawButton(Robot.oi.robotLifterUpButton);
+    boolean downButton = Robot.oi.joy2.getRawButton(Robot.oi.robotLifterDownButton);
 
-    if(turningSpeed >= 0.6) {
-      turningSpeed = 0.6;
-    }else if(turningSpeed <= -0.6){
-      turningSpeed = -0.6;
+    if(upButton) {
+      Robot.lifterUpSubsystem.lift(0.3); 
     }
-    System.out.println("Speed: " + turningSpeed); 
-    Robot.rotateArmSubsystem.rotMotor.set(turningSpeed);
+    else if(downButton) {
+      Robot.lifterUpSubsystem.lift(-0.3);
+    }else{
+      Robot.lifterUpSubsystem.lift(0);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    double error = targetAngle - Robot.rotateArmSubsystem.rotEnc.get(); 
-    return (Math.abs(error) <= 4);
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.rotateArmSubsystem.rotMotor.set(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

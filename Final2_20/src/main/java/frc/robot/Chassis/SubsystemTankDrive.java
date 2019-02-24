@@ -23,8 +23,8 @@ public class SubsystemTankDrive extends Subsystem {
   // here. Call these from Commands.
 
 
-  public Encoder enc_r = new Encoder(0, 1,true, Encoder.EncodingType.k4X);
-  public Encoder enc_l = new Encoder(2, 3,false, Encoder.EncodingType.k4X);
+  public Encoder enc_r = new Encoder(RobotMap.chassisEncoder_r, (RobotMap.chassisEncoder_r +1),true, Encoder.EncodingType.k4X);
+  public Encoder enc_l = new Encoder(RobotMap.chassisEncoder_l, (RobotMap.chassisEncoder_l+1), false, Encoder.EncodingType.k4X);
 
   public WPI_TalonSRX FR = new WPI_TalonSRX(RobotMap.FR_port);
   public WPI_TalonSRX BR = new WPI_TalonSRX(RobotMap.BR_port);
@@ -68,9 +68,9 @@ public class SubsystemTankDrive extends Subsystem {
 //PIDRetardedDrive
 //-------------------------------------
   
-  double d_gain = -0.003;
-  double i_gain = 0.0004;
-  double p_gain = 0.0000;
+  double d_gain = 0;//-0.003;
+  double i_gain = 0;//0.0004;
+  double p_gain = 0;//0.0000;
   double rightSpeed , leftSpeed;
   double s_d_corr, s_i_corr = 0, s_p_corr = 0;
   double t_corr=0;

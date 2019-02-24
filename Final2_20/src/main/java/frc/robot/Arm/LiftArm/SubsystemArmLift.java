@@ -28,7 +28,7 @@ public class SubsystemArmLift extends Subsystem {
 
   public SubsystemArmLift(){
     liftMotor = new WPI_VictorSPX (RobotMap.liftMotor_port);
-    encLift = new Encoder(8, 9, false, Encoder.EncodingType.k4X);
+    encLift = new Encoder(RobotMap.liftArmEncoder, (RobotMap.liftArmEncoder+1), false, Encoder.EncodingType.k4X);
   }
 
   @Override

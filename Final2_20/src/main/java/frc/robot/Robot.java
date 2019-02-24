@@ -14,6 +14,8 @@ import frc.robot.Arm.ClawArm.*;
 import frc.robot.Arm.LiftArm.*;
 import frc.robot.Arm.RotateArm.*;
 import frc.robot.Chassis.*;
+import frc.robot.RobotLifter.SubsystemRobotLifterForward;
+import frc.robot.RobotLifter.SubsystemRobotLifterUp;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -36,6 +38,8 @@ public class Robot extends TimedRobot {
   public static SubsystemArmLift armLiftSubsystem;
   public static SubsystemRotateArm rotateArmSubsystem;
   public static SubsystemSolenoidArm solenoidArmSubsystem;
+  public static SubsystemRobotLifterUp lifterUpSubsystem;
+  public static SubsystemRobotLifterForward lifterForwardSubsystem;
 //---------------------------
 
 
@@ -46,6 +50,8 @@ public class Robot extends TimedRobot {
     armLiftSubsystem = new SubsystemArmLift();
     rotateArmSubsystem = new SubsystemRotateArm();
     solenoidArmSubsystem = new SubsystemSolenoidArm();
+    lifterUpSubsystem = new SubsystemRobotLifterUp();
+    //lifterForwardSubsystem = new SubsystemRobotLifterForward();
     oi = new OI();
   }
 
@@ -54,7 +60,7 @@ public class Robot extends TimedRobot {
   
   @Override
   public void robotPeriodic() {
-    boolean tempButton = oi.joy1.getRawButton(RobotMap.expButton);
+    boolean tempButton = oi.joy1.getRawButton(OI.expButton);
 
     if(tempButton && !preExpButton)
     {

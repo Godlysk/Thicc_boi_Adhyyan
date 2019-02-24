@@ -11,6 +11,7 @@ import frc.robot.commands.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.*;
 import frc.robot.Chassis.*;
+import frc.robot.RobotLifter.*;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
@@ -21,20 +22,30 @@ import frc.robot.Arm.RotateArm.*;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-  Button commandSteerDriveButton;
+  Button commandSteerDriveButton, CommandRotateArmToAngleButton, CommandRobotLifterUp, CommandRobotLifterForward;
 
-  Button button5;
+
 
   public Joystick joy1, joy2;
+  public static int steerButton = 1;
+  public static int rotateArmToAngleButton = 4;
+  public static int robotLifterUpButton = 6;
+  public static int robotLifterDownButton = 7;
+  public static int robotLifterForwardButton = 8;
+  public static int robotLifterBackwardButton = 9;
+  public static int expButton = 10;
+  
 
   public OI(){
     joy1 = new Joystick(1);
     joy2 = new Joystick(2);
-    commandSteerDriveButton = new JoystickButton(joy1, RobotMap.steerButton);
+    //Steer drive function - button 1
+    commandSteerDriveButton = new JoystickButton(joy1, steerButton);
     commandSteerDriveButton.whileHeld(new CommandSteerDrive());
-    button5 = new JoystickButton(joy2, 5);
 
-    button5.whileHeld(new CommandRotateArmToAngle(30));
+    //rotate arm to angle function - button 5
+    // CommandRotateArmToAngleButton = new JoystickButton(joy2, rotateArmToAngleButton);
+    // CommandRotateArmToAngleButton.whileHeld(new CommandRotateArmToAngle(30));
 
   }
 
