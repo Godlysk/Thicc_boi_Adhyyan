@@ -24,8 +24,8 @@ public class CommandSolenoidArm extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    boolean openButton = Robot.oi.joy2.getRawButton(1);
-    boolean closeButton = Robot.oi.joy2.getRawButton(2);
+    boolean openButton = Robot.oi.joy2.getRawButton(Robot.joystick2.grabberOpenButton);
+    boolean closeButton = Robot.oi.joy2.getRawButton(Robot.joystick2.grabberCloseButton);
 
     if(openButton){
       Robot.solenoidArmSubsystem.open();

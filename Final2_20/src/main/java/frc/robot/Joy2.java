@@ -18,9 +18,9 @@ import frc.robot.Robot;
 import frc.robot.Arm.RotateArm.*;
 
 public class Joy2 {
-    
-    Button  CommandRotateArmToAngleButton;
-
+    Button CommandRotateArmToAngleButton;
+    public static int grabberOpenButton = 1;
+    public static int grabberCloseButton = 2;
     public static int grabberMoveDownButton =3;
     public static int grabberMoveUpButton =5;
     public static int rotateArmToAngleButton = 4;
@@ -28,8 +28,6 @@ public class Joy2 {
     public static int robotLifterDownButton = 7;
     public static int robotLifterForwardButton = 8;
     public static int robotLifterBackwardButton = 9;
-    public static int expButton = 10;
-
     public Joy2() {
         // rotate arm to angle function - button 5
         CommandRotateArmToAngleButton = new JoystickButton(Robot.oi.joy2, rotateArmToAngleButton);

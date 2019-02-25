@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import frc.robot.Utils;
 import edu.wpi.first.wpilibj.*;
 
 /**
@@ -36,6 +37,9 @@ public class SubsystemRobotLifterUp extends Subsystem {
   public void lift(double lifterSpeed) {
     motor1.set(lifterSpeed);
     motor2.set(lifterSpeed);
+  }
+
+  public void PIDlifter(double lifterSpeed) {
   }
 
   @Override

@@ -23,7 +23,6 @@ public class Joy1 {
     public static int expButton = 10;
 
     public Joy1() {
-
         //Steer drive function - button 1
         commandSteerDriveButton = new JoystickButton(Robot.oi.joy1, steerButton);
         commandSteerDriveButton.whileHeld(new CommandSteerDrive());
