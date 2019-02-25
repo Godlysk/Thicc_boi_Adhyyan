@@ -26,8 +26,8 @@ public class CommandRobotLifterUp extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    boolean upButton = Robot.oi.joy2.getRawButton(Robot.oi.robotLifterUpButton);
-    boolean downButton = Robot.oi.joy2.getRawButton(Robot.oi.robotLifterDownButton);
+    boolean upButton = Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterUpButton);
+    boolean downButton = Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterDownButton);
 
     if(upButton) {
       Robot.lifterUpSubsystem.lift(0.3); 

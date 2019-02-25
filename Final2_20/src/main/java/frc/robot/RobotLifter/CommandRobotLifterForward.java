@@ -25,8 +25,8 @@ public class CommandRobotLifterForward extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Boolean forwardButton = Robot.oi.joy2.getRawButton(Robot.oi.robotLifterForwardButton);
-    Boolean backwardButton = Robot.oi.joy2.getRawButton(Robot.oi.robotLifterBackwardButton);
+    Boolean forwardButton = Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterForwardButton);
+    Boolean backwardButton = Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterBackwardButton);
     if(forwardButton) {
       Robot.lifterForwardSubsystem.drive(0.5);
     }else if(backwardButton) {

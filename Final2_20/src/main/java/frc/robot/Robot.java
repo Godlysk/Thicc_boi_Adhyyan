@@ -40,6 +40,8 @@ public class Robot extends TimedRobot {
   public static SubsystemSolenoidArm solenoidArmSubsystem;
   public static SubsystemRobotLifterUp lifterUpSubsystem;
   public static SubsystemRobotLifterForward lifterForwardSubsystem;
+  public static Joy1 joystick1;
+  public static Joy2 joystick2;
 //---------------------------
 
 
@@ -53,6 +55,8 @@ public class Robot extends TimedRobot {
     lifterUpSubsystem = new SubsystemRobotLifterUp();
     //lifterForwardSubsystem = new SubsystemRobotLifterForward();
     oi = new OI();
+    joystick1 = new Joy1();
+    joystick2 = new Joy2();
   }
 
   boolean preExpButton = false;
@@ -60,7 +64,7 @@ public class Robot extends TimedRobot {
   
   @Override
   public void robotPeriodic() {
-    boolean tempButton = oi.joy1.getRawButton(OI.expButton);
+    boolean tempButton = Robot.oi.joy1.getRawButton(Robot.joystick1.expButton);
 
     if(tempButton && !preExpButton)
     {
