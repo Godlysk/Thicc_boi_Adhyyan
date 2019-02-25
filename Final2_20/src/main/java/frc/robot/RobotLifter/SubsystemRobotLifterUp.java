@@ -39,7 +39,30 @@ public class SubsystemRobotLifterUp extends Subsystem {
     motor2.set(lifterSpeed);
   }
 
-  public void PIDlifter(double lifterSpeed) {
+  public void liftingSpeeds(double front, double back) {
+    motor1.set(front);
+    motor2.set(back);
+  }
+
+  double enc_F, enc_R, error, derivative, pitch = 0;
+  double kP = 0.0;
+  double kD = 0.0;
+
+  public void PIDlifter(double f, double b) {
+    enc_F = lifterUpEncoder1.getRate();
+    enc_R = lifterUpEncoder2.getRate();
+    pitch = Utils.navx.getPitch();
+
+    error = enc_F - enc_R; 
+    derivative = pitch;
+
+    double correction = (error * kP) + (derivative * kD); 
+    
+    f -= correction;
+    b += correction;
+
+    liftingSpeeds(f, b);
+
   }
 
   @Override

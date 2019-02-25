@@ -51,7 +51,8 @@ public class RobotMap {
   public static int chassisEncoder_l = 2;
   public static int elevatorEncoder_l = 6;
   public static int elevatorEncoder_r = 8;
-  public static int rotateArmEncoder = 8;
+  //public static int rotateArmEncoder = 10;
   public static int liftArmEncoder = 4;
+
 
 }
