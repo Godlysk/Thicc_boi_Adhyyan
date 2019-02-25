@@ -53,7 +53,9 @@ public class Robot extends TimedRobot {
     rotateArmSubsystem = new SubsystemRotateArm();
     solenoidArmSubsystem = new SubsystemSolenoidArm();
     lifterUpSubsystem = new SubsystemRobotLifterUp();
+
     //lifterForwardSubsystem = new SubsystemRobotLifterForward();
+    
     oi = new OI();
     joystick1 = new Joy1();
     joystick2 = new Joy2();
@@ -98,6 +100,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
   }
+  
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();

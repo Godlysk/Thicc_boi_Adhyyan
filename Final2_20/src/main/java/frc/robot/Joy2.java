@@ -21,8 +21,8 @@ public class Joy2 {
     
     Button  CommandRotateArmToAngleButton;
 
-    public static int grabberMoveDownButton =3;
-    public static int grabberMoveUpButton =5;
+    public static int grabberMoveDownButton = 3;
+    public static int grabberMoveUpButton = 5;
     public static int rotateArmToAngleButton = 4;
     public static int robotLifterUpButton = 6;
     public static int robotLifterDownButton = 7;
@@ -34,5 +34,8 @@ public class Joy2 {
         // rotate arm to angle function - button 5
         CommandRotateArmToAngleButton = new JoystickButton(Robot.oi.joy2, rotateArmToAngleButton);
         CommandRotateArmToAngleButton.whileHeld(new CommandRotateArmToAngle(30));
+
+        CommandBrakeMoveButton = new JoystickButton(Robot.oi.joy1, brakeButton);
+
     }
 }

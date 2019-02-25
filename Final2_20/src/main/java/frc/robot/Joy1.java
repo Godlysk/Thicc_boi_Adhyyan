@@ -18,15 +18,19 @@ import frc.robot.Robot;
 import frc.robot.Arm.RotateArm.*;
 
 public class Joy1 {
-    Button commandSteerDriveButton;
+    
+    Button commandSteerDriveButton, commandBrakeMoveButton;
     public static int steerButton = 1;
+    public static int brakeButton = 2;
     public static int expButton = 10;
 
     public Joy1() {
-
         //Steer drive function - button 1
         commandSteerDriveButton = new JoystickButton(Robot.oi.joy1, steerButton);
         commandSteerDriveButton.whileHeld(new CommandSteerDrive());
+
+        commandBrakeMoveButton = new JoystickButton(Robot.oi.joy1, brakeButton);
+        commandBrakeMoveButton.whileHeld(new CommandBrake());
     }
 
 }
