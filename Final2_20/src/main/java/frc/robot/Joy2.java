@@ -28,12 +28,11 @@ public class Joy2 {
     public static int robotLifterDownButton = 7;
     public static int robotLifterForwardButton = 8;
     public static int robotLifterBackwardButton = 9;
+    
     public Joy2() {
         // rotate arm to angle function - button 5
         CommandRotateArmToAngleButton = new JoystickButton(Robot.oi.joy2, rotateArmToAngleButton);
         CommandRotateArmToAngleButton.whileHeld(new CommandRotateArmToAngle(30));
-
-        CommandBrakeMoveButton = new JoystickButton(Robot.oi.joy1, brakeButton);
 
     }
 }
