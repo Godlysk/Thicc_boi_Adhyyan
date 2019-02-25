@@ -32,5 +32,8 @@ public class Joy2 {
         // rotate arm to angle function - button 5
         CommandRotateArmToAngleButton = new JoystickButton(Robot.oi.joy2, rotateArmToAngleButton);
         CommandRotateArmToAngleButton.whileHeld(new CommandRotateArmToAngle(30));
+
+        CommandBrakeMoveButton = new JoystickButton(Robot.oi.joy1, brakeButton);
+
     }
 }
