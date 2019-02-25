@@ -30,10 +30,10 @@ public class CommandRobotLifterUp extends Command {
     boolean downButton = Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterDownButton);
 
     if(upButton) {
-      Robot.lifterUpSubsystem.lift(0.3); 
+      Robot.lifterUpSubsystem.lift(0.8); 
     }
     else if(downButton) {
-      Robot.lifterUpSubsystem.lift(-0.3);
+      Robot.lifterUpSubsystem.lift(-0.8);
     }else{
       Robot.lifterUpSubsystem.lift(0);
     }
