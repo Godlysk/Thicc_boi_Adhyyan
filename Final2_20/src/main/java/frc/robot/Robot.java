@@ -16,7 +16,6 @@ import frc.robot.Arm.RotateArm.*;
 import frc.robot.Chassis.*;
 import frc.robot.RobotLifter.SubsystemRobotLifterForward;
 import frc.robot.RobotLifter.SubsystemRobotLifterUp;
-import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
 
@@ -40,6 +39,7 @@ public class Robot extends TimedRobot {
   public static SubsystemSolenoidArm solenoidArmSubsystem;
   public static SubsystemRobotLifterUp lifterUpSubsystem;
   public static SubsystemRobotLifterForward lifterForwardSubsystem;
+  public static SubsystemArmWheels armShooterWheels;
   public static Joy1 joystick1;
   public static Joy2 joystick2;
 //---------------------------
@@ -53,6 +53,7 @@ public class Robot extends TimedRobot {
     rotateArmSubsystem = new SubsystemRotateArm();
     solenoidArmSubsystem = new SubsystemSolenoidArm();
     lifterUpSubsystem = new SubsystemRobotLifterUp();
+    armShooterWheels = new SubsystemArmWheels();
 
     //lifterForwardSubsystem = new SubsystemRobotLifterForward();
     

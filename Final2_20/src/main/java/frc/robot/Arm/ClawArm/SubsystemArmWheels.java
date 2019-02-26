@@ -7,35 +7,35 @@
 
 package frc.robot.Arm.ClawArm;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-import frc.robot.RobotMap;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
+import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 
 /**
  * Add your docs here.
  */
-public class SubsystemSolenoidArm extends Subsystem {
+public class SubsystemArmWheels extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-
-  public DoubleSolenoid ds;
-
-  public SubsystemSolenoidArm(){
-    ds = new DoubleSolenoid(RobotMap.pistonPortFirst, RobotMap.pistonPortSecond);
-  }
+  public WPI_VictorSPX shooterMotor1;
+  public WPI_VictorSPX shooterMotor2;
+  
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new CommandSolenoidArm());
+    // Set the default command for a subsystem here.
+    // setDefaultCommand(new MySpecialCommand());
+    setDefaultCommand(new CommandArmWheels());
   }
 
-  public void open(){
-    ds.set(Value.kForward);
+  public SubsystemArmWheels() {
+    shooterMotor1 = new WPI_VictorSPX(RobotMap.shooterMotor1);
+    shooterMotor2 = new WPI_VictorSPX(RobotMap.shooterMotor2);
   }
 
-  public void close(){
-    ds.set(Value.kReverse);
+  public void turn(double rotateSpeed) {
+    shooterMotor1.set(rotateSpeed);
+    shooterMotor2.set(rotateSpeed);
   }
 }

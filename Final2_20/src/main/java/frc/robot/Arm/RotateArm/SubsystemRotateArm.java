@@ -12,8 +12,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.Encoder;
 
-
-
 /**
  * Add your docs here.
  */

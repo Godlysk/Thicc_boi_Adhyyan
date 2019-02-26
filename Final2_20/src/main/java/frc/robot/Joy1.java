@@ -7,22 +7,16 @@
 
 package frc.robot;
 
-import frc.robot.commands.*;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.*;
 import frc.robot.Chassis.*;
-import frc.robot.RobotLifter.*;
-
-import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.Arm.RotateArm.*;
 
 public class Joy1 {
     
     Button commandSteerDriveButton, commandBrakeMoveButton;
-    public static int steerButton = 1;
-    public static int brakeButton = 2;
-    public static int expButton = 10;
+    public int steerButton = 1;
+    public int brakeButton = 2;
+    public int expButton = 10;
 
     public Joy1() {
         //Steer drive function - button 1

@@ -5,16 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.RobotLifter;
+package frc.robot.Arm.ClawArm;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class CommandRobotLifterUp extends Command {
-  public CommandRobotLifterUp() {
+public class CommandArmWheels extends Command {
+  public CommandArmWheels() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.lifterUpSubsystem);
+    requires(Robot.armShooterWheels);
   }
 
   // Called just before this Command runs the first time
@@ -25,17 +25,14 @@ public class CommandRobotLifterUp extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    boolean upButton = Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterUpButton);
-    boolean downButton = Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterDownButton);
+    boolean openButton = Robot.oi.joy2.getRawButton(Robot.joystick2.grabberOpenButton);
+    boolean closeButton = Robot.oi.joy2.getRawButton(Robot.joystick2.grabberCloseButton);
 
-    if(upButton) {
-      Robot.lifterUpSubsystem.lift(0.8); 
-    }
-    else if(downButton) {
-      Robot.lifterUpSubsystem.lift(-0.8);
-    }else{
-      Robot.lifterUpSubsystem.lift(0);
-    }
+    if(openButton) {
+      Robot.armShooterWheels.turn(0.2);
+    }else if(closeButton) {
+      Robot.armShooterWheels.turn(-0.2);
+    }else {}
   }
 
   // Make this return true when this Command no longer needs to run execute()

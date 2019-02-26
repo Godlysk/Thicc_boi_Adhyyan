@@ -43,6 +43,10 @@ public class RobotMap {
   //subsystemRobotLifterForward
   public static int robotLifterForwardMotor = 11;
 
+  //shooter motors
+  public static int shooterMotor1 = 7;
+  public static int shooterMotor2 = 8;
+  
   public static int pistonPortFirst = 1;
   public static int pistonPortSecond = 4;
 
