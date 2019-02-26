@@ -77,6 +77,9 @@ public class Robot extends TimedRobot {
     preExpButton = tempButton;
     SmartDashboard.putNumber("ExpAuto", ExposureSetting? 1.0: 0.0);
 
+    SmartDashboard.putNumber("Pitch ", Utils.navx.getPitch());
+    SmartDashboard.putNumber("X-axis ", Utils.navx.getRawGyroX());
+
   }
 
 
