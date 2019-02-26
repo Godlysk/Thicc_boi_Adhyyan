@@ -43,19 +43,26 @@ public class SubsystemRobotLifterUp extends Subsystem {
     motor2.set(back);
   }
 
-  double enc_F, enc_R, error, derivative, pitch = 0;
-  double kP = 0.0;
-  double kD = 0.0;
+  double enc_F, enc_B, derivative, integral_enc = 0;
+  double pitch, xrate, proportional = 0;
+  double integral_gyro = 0;
+  double kP_gyro = 0.0;
+  double kD_gyro = 0.0;
+  double kI_encoder = 0.0;
+  double kI_gyro = 0.0;
 
   public void PIDlifter(double f, double b) {
     enc_F = lifterUpEncoder1.getRate();
-    enc_R = lifterUpEncoder2.getRate();
+    enc_B = lifterUpEncoder2.getRate();
     pitch = Utils.navx.getPitch();
+    xrate = Utils.navx.getRawGyroX();
+    
+    proportional = -pitch;
+    integral_enc += (enc_F - enc_B);
+    derivative = xrate;
+    integral_gyro += -pitch;
 
-    error = enc_F - enc_R; 
-    derivative = pitch;
-
-    double correction = (error * kP) + (derivative * kD); 
+    double correction = (proportional * kP_gyro) + (derivative * kD_gyro) + (integral_enc * kI_encoder) + (integral_gyro * kI_gyro); 
     
     f -= correction;
     b += correction;
@@ -68,6 +75,6 @@ public class SubsystemRobotLifterUp extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new CommandRobotLifterUp());
+    setDefaultCommand(new CommandRobotLifterUpDown());
   }
 }

@@ -16,7 +16,7 @@ public class Joy2 {
     public int grabberOpenButton = 1;
     public int grabberCloseButton = 2;
     public int grabberMoveDownButton =3;
-    public int grabberMoveUpButton =5;
+    public int grabberMoveUpButton = 5;
     public int rotateArmToAngleButton = 4;
     public int robotLifterUpButton = 6;
     public int robotLifterDownButton = 7;
