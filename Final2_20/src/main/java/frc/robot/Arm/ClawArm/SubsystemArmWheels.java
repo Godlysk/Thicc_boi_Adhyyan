@@ -32,6 +32,7 @@ public class SubsystemArmWheels extends Subsystem {
   public SubsystemArmWheels() {
     shooterMotor1 = new WPI_VictorSPX(RobotMap.shooterMotor1);
     shooterMotor2 = new WPI_VictorSPX(RobotMap.shooterMotor2);
+    shooterMotor2.setInverted(true);
   }
 
   public void turn(double rotateSpeed) {

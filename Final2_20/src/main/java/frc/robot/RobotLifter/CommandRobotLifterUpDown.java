@@ -53,7 +53,9 @@ public class CommandRobotLifterUpDown extends Command {
       Robot.lifterUpSubsystem.liftingSpeeds(0,0.8);
     }else if(rightDownButton) {
       Robot.lifterUpSubsystem.liftingSpeeds(0, -0.8);
-    }else {}
+    }else {
+      Robot.lifterUpSubsystem.liftingSpeeds(0, 0);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()

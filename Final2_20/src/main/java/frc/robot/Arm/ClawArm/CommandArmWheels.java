@@ -25,14 +25,16 @@ public class CommandArmWheels extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    boolean openButton = Robot.oi.joy2.getRawButton(Robot.joystick2.grabberOpenButton);
-    boolean closeButton = Robot.oi.joy2.getRawButton(Robot.joystick2.grabberCloseButton);
+    boolean shooterForward = Robot.oi.joy2.getRawButton(Robot.joystick2.grabberShooterOpen);
+    boolean shooterBackward = Robot.oi.joy2.getRawButton(Robot.joystick2.grabberShooterClose);
 
-    if(openButton) {
-      Robot.armShooterWheels.turn(0.2);
-    }else if(closeButton) {
-      Robot.armShooterWheels.turn(-0.2);
-    }else {}
+    if(shooterForward) {
+      Robot.armShooterWheels.turn(0.75);
+    }else if(shooterBackward) {
+      Robot.armShooterWheels.turn(-0.75);
+    }else {
+      Robot.armShooterWheels.turn(0);
+    }
   }
 
   // Make this return true when this Command no longer needs to run execute()
