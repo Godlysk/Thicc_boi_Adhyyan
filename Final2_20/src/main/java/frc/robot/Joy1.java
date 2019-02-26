@@ -17,10 +17,10 @@ public class Joy1 {
     public int steerButton = 1;
     public int brakeButton = 2;
     public int expButton = 10;
-    public int leftRobotLifterUpButton = 4;
-    public int leftRobotLifterDownButton =5;
-    public int rightRobotLifterUpButton =6 ;
-    public int rightRobotLifterDownButton = 7;
+    public int frontRobotLifterUpButton = 4;
+    public int frontRobotLifterDownButton =5;
+    public int backRobotLifterUpButton =6 ;
+    public int backRobotLifterDownButton = 7;
     
 
     public Joy1() {

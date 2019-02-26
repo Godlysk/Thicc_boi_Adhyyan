@@ -68,8 +68,8 @@ public class SubsystemTankDrive extends Subsystem {
 //PIDRetardedDrive
 //-------------------------------------
   
-  double d_gain = 0;//-0.003;
-  double i_gain = 0;//0.0004;
+  double d_gain = 0;
+  double i_gain = 0;
   double p_gain = 0;//0.0000;
   double rightSpeed , leftSpeed;
   double s_d_corr, s_i_corr = 0, s_p_corr = 0;

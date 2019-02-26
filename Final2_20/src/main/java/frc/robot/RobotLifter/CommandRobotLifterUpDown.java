@@ -29,10 +29,10 @@ public class CommandRobotLifterUpDown extends Command {
     boolean downButton = Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterDownButton);
 
     //individual lifter mechanism buttons
-    boolean leftUpButton = Robot.oi.joy2.getRawButton(Robot.joystick1.leftRobotLifterUpButton);    
-    boolean leftDownButton = Robot.oi.joy2.getRawButton(Robot.joystick1.leftRobotLifterDownButton);
-    boolean rightUpButton = Robot.oi.joy2.getRawButton(Robot.joystick1.rightRobotLifterUpButton);
-    boolean rightDownButton = Robot.oi.joy2.getRawButton(Robot.joystick1.rightRobotLifterDownButton);
+    boolean leftUpButton = Robot.oi.joy2.getRawButton(Robot.joystick1.frontRobotLifterUpButton);    
+    boolean leftDownButton = Robot.oi.joy2.getRawButton(Robot.joystick1.frontRobotLifterDownButton);
+    boolean rightUpButton = Robot.oi.joy2.getRawButton(Robot.joystick1.backRobotLifterUpButton);
+    boolean rightDownButton = Robot.oi.joy2.getRawButton(Robot.joystick1.backRobotLifterDownButton);
 
     //together PID
     if(upButton) {

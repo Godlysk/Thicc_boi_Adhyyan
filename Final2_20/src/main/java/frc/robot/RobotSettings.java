@@ -3,11 +3,11 @@ package frc.robot;
 public class RobotSettings
 {
     public static double ysens = 0.5;
-    public static double zsens = 2;
+    public static double zsens = 1.5;
 
 
     //deadband
-    public static double zthresh = 0.05;
+    public static double zthresh = 0.025;
 
     //pixel center of the camera
     public static double center = 80;
