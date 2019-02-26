@@ -24,8 +24,8 @@ public class CommandMoveLift extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    boolean moveUpButton = Robot.oi.joy2.getRawButton(Robot.joystick2.grabberMoveUpButton);
-    boolean moveDownButton = Robot.oi.joy2.getRawButton(Robot.joystick2.grabberMoveDownButton);
+    boolean moveUpButton = Robot.oi.joy2.getRawButton(Robot.joystick2.grabberLiftUpButton);
+    boolean moveDownButton = Robot.oi.joy2.getRawButton(Robot.joystick2.grabberLiftDownButton);
 
     if(moveUpButton){
       Robot.armLiftSubsystem.liftMotor.set(0.8);

@@ -69,7 +69,7 @@ public class SubsystemTankDrive extends Subsystem {
 //-------------------------------------
   
   double d_gain = 0;
-  double i_gain = 0;
+  double i_gain = 0.0005;
   double p_gain = 0;//0.0000;
   double rightSpeed , leftSpeed;
   double s_d_corr, s_i_corr = 0, s_p_corr = 0;
@@ -79,6 +79,9 @@ public class SubsystemTankDrive extends Subsystem {
     double yaxis = Robot.oi.getY(Robot.oi.joy1);
     double zaxis = Robot.oi.getZ(Robot.oi.joy1);
 
+    SmartDashboard.putNumber("Enc_r", enc_r.getRate());
+    SmartDashboard.putNumber("Enc_l", enc_l.getRate());
+
     double err;  
     if(Math.abs(yaxis) > Math.abs(zaxis)){
       err = enc_l.getRate() - enc_r.getRate();
@@ -86,16 +89,16 @@ public class SubsystemTankDrive extends Subsystem {
       s_i_corr += err*i_gain;
       s_p_corr = err*p_gain;
 
-      rightSpeed = yaxis*0.5 + s_d_corr + s_i_corr + s_p_corr;
-      leftSpeed = yaxis*0.5 - s_d_corr - s_i_corr - s_p_corr;
+      rightSpeed = yaxis*RobotSettings.ysens + s_d_corr + s_i_corr + s_p_corr;
+      leftSpeed = yaxis*RobotSettings.ysens - s_d_corr - s_i_corr - s_p_corr;
 
       SmartDashboard.putNumber("icorrection", s_i_corr);
       SmartDashboard.putNumber("dCorrection", s_d_corr);
 
     }else if(Math.abs(yaxis)<Math.abs(zaxis) && Math.abs(zaxis)>RobotSettings.zthresh){
       err = Utils.navx.getRate() - mapAngRate(zaxis);
-      double p_corr = 0.1*err;
-      t_corr+=err*0.01;
+      double p_corr = 0.2*err;
+      t_corr+=err*0.02;
 
       leftSpeed =  -1*(t_corr + p_corr);
       rightSpeed = (t_corr + p_corr);

@@ -25,14 +25,14 @@ public class CommandRobotLifterUpDown extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    boolean upButton = Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterUpButton);
-    boolean downButton = Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterDownButton);
+    boolean upButton = Robot.oi.joy1.getRawButton( Robot.joystick2.robotLifterUpButton);
+    boolean downButton = Robot.oi.joy1.getRawButton( Robot.joystick2.robotLifterDownButton);
 
     //individual lifter mechanism buttons
-    boolean leftUpButton = Robot.oi.joy2.getRawButton(Robot.joystick1.frontRobotLifterUpButton);    
-    boolean leftDownButton = Robot.oi.joy2.getRawButton(Robot.joystick1.frontRobotLifterDownButton);
-    boolean rightUpButton = Robot.oi.joy2.getRawButton(Robot.joystick1.backRobotLifterUpButton);
-    boolean rightDownButton = Robot.oi.joy2.getRawButton(Robot.joystick1.backRobotLifterDownButton);
+    boolean leftUpButton = Robot.oi.joy1.getRawButton(Robot.joystick1.frontRobotLifterUpButton);    
+    boolean leftDownButton = Robot.oi.joy1.getRawButton(Robot.joystick1.frontRobotLifterDownButton);
+    boolean rightUpButton = Robot.oi.joy1.getRawButton(Robot.joystick1.backRobotLifterUpButton);
+    boolean rightDownButton = Robot.oi.joy1.getRawButton(Robot.joystick1.backRobotLifterDownButton);
 
     //together PID
     if(upButton) {

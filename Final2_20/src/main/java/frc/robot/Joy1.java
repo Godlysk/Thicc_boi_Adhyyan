@@ -18,8 +18,8 @@ public class Joy1 {
     public int brakeButton = 2;
     public int expButton = 10;
     public int frontRobotLifterUpButton = 4;
-    public int frontRobotLifterDownButton =5;
-    public int backRobotLifterUpButton =6 ;
+    public int frontRobotLifterDownButton = 5;
+    public int backRobotLifterUpButton = 6;
     public int backRobotLifterDownButton = 7;
     
 
@@ -28,6 +28,7 @@ public class Joy1 {
         commandSteerDriveButton = new JoystickButton(Robot.oi.joy1, steerButton);
         commandSteerDriveButton.whileHeld(new CommandSteerDrive());
 
+        //Command Brake - Chassis - stops everything in the chassis subsystem
         commandBrakeMoveButton = new JoystickButton(Robot.oi.joy1, brakeButton);
         commandBrakeMoveButton.whileHeld(new CommandBrake());
     }

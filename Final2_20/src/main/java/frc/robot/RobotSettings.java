@@ -3,7 +3,7 @@ package frc.robot;
 public class RobotSettings
 {
     public static double ysens = 0.5;
-    public static double zsens = 1.5;
+    public static double zsens = 2;
 
 
     //deadband
