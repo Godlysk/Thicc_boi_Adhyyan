@@ -10,8 +10,8 @@ package frc.robot.RobotLifter;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class CommandRobotLifterUp extends Command {
-  public CommandRobotLifterUp() {
+public class CommandRobotLifterUpDown extends Command {
+  public CommandRobotLifterUpDown() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.lifterUpSubsystem);
@@ -28,6 +28,13 @@ public class CommandRobotLifterUp extends Command {
     boolean upButton = Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterUpButton);
     boolean downButton = Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterDownButton);
 
+    //individual lifter mechanism buttons
+    boolean leftUpButton = Robot.oi.joy2.getRawButton(Robot.joystick1.leftRobotLifterUpButton);    
+    boolean leftDownButton = Robot.oi.joy2.getRawButton(Robot.joystick1.leftRobotLifterDownButton);
+    boolean rightUpButton = Robot.oi.joy2.getRawButton(Robot.joystick1.rightRobotLifterUpButton);
+    boolean rightDownButton = Robot.oi.joy2.getRawButton(Robot.joystick1.rightRobotLifterDownButton);
+
+    //together PID
     if(upButton) {
       Robot.lifterUpSubsystem.lift(0.8); 
     }
@@ -36,6 +43,17 @@ public class CommandRobotLifterUp extends Command {
     }else{
       Robot.lifterUpSubsystem.lift(0);
     }
+
+    //individual movement -up & down
+    if(leftUpButton) {
+      Robot.lifterUpSubsystem.liftingSpeeds(0.8, 0);
+    }else if(leftDownButton) {
+      Robot.lifterUpSubsystem.liftingSpeeds(-0.8, 0);
+    }else if(rightUpButton) {
+      Robot.lifterUpSubsystem.liftingSpeeds(0,0.8);
+    }else if(rightDownButton) {
+      Robot.lifterUpSubsystem.liftingSpeeds(0, -0.8);
+    }else {}
   }
 
   // Make this return true when this Command no longer needs to run execute()
