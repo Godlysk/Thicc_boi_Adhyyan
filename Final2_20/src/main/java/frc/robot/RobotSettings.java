@@ -5,6 +5,8 @@ public class RobotSettings
     public static double ysens = 0.5;
     public static double zsens = 2;
 
+    public static double acceleration_max = 0.5;
+
 
     //deadband
     public static double zthresh = 0.025;

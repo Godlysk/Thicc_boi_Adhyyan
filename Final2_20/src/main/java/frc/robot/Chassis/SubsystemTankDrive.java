@@ -60,7 +60,7 @@ public class SubsystemTankDrive extends Subsystem {
     leftSpeed =  yaxis*RobotSettings.ysens + (-1*(steer_corr + p_corr));
     rightSpeed = yaxis*RobotSettings.ysens+ (steer_corr + p_corr);
 
-    drive(leftSpeed, rightSpeed);
+    smoothDrive(leftSpeed, rightSpeed);
   }
 //---------------------------------
   
@@ -71,11 +71,12 @@ public class SubsystemTankDrive extends Subsystem {
   double d_gain = 0;
   double i_gain = 0.0005;
   double p_gain = 0;//0.0000;
-  double rightSpeed , leftSpeed;
+  
   double s_d_corr, s_i_corr = 0, s_p_corr = 0;
   double t_corr=0;
 
   public void PIDRetardedDrive(){
+    double rightSpeed , leftSpeed;
     double yaxis = Robot.oi.getY(Robot.oi.joy1);
     double zaxis = Robot.oi.getZ(Robot.oi.joy1);
 
@@ -110,7 +111,7 @@ public class SubsystemTankDrive extends Subsystem {
       rightSpeed = 0;
       leftSpeed = 0;
     }
-    drive(leftSpeed, rightSpeed);
+    smoothDrive(leftSpeed, rightSpeed);
   }
 //-------------------------------------
 
@@ -128,8 +129,9 @@ public class SubsystemTankDrive extends Subsystem {
     drive(v+correction, v-correction);
   }
 //-------------------------------------
-//utility functions 
 
+
+//utility functions 
 //------------------------
   public double mapAngRate(double z)
   {
@@ -139,6 +141,19 @@ public class SubsystemTankDrive extends Subsystem {
 
   public void drive(double left, double right)
   {
+    FR.set(right);
+    BR.set(right);
+    FL.set(left);
+    BL.set(left);
+  }
+
+  double left_speed = 0, right_speed=0;
+
+  double smoothDeadband = 0.02;
+  public void smoothDrive(double left, double right)
+  {
+    left += left + (0.02 * RobotSettings.acceleration_max * Math.abs(left_speed-left)>smoothDeadband?(left_speed<left?1:-1) : 0);
+    right += right + (0.02 * RobotSettings.acceleration_max * Math.abs(right_speed-right)>smoothDeadband?(right_speed<right?1:-1) : 0);
     FR.set(right);
     BR.set(right);
     FL.set(left);
