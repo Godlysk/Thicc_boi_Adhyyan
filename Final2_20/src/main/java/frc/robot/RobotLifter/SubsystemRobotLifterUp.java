@@ -46,10 +46,10 @@ public class SubsystemRobotLifterUp extends Subsystem {
   double enc_F, enc_B, derivative, integral_enc = 0;
   double pitch, xrate, proportional = 0;
   double integral_gyro = 0;
-  double kP_gyro = 0.0;
-  double kD_gyro = 0.0;
-  double kI_encoder = 0.0;
-  double kI_gyro = 0.0;
+  double kP_gyro = 0;
+  double kD_gyro = 0;
+  double kI_encoder = 0;
+  double kI_gyro = 0;
 
   public void PIDlifter(double f, double b) {
     enc_F = lifterUpEncoder1.getRate();
