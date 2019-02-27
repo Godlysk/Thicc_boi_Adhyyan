@@ -22,6 +22,7 @@ public class Joy2 {
     public int robotLifterBackwardButton = 9;
     public int grabberShooterOpen = 11;
     public int grabberShooterClose =12;
+    
     public Joy2() {
         // rotate arm to angle function - button 4
         // CommandRotateArmToAngleButton = new JoystickButton(Robot.oi.joy2, rotateArmToAngleButton);

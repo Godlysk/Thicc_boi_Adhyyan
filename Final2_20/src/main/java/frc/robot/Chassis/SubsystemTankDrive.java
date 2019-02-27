@@ -74,7 +74,8 @@ public class SubsystemTankDrive extends Subsystem {
   double rightSpeed , leftSpeed;
   double s_d_corr, s_i_corr = 0, s_p_corr = 0;
   double t_corr=0;
-
+  double pre_temp = 0;
+  double err = 0;
   public void PIDRetardedDrive(){
     double yaxis = Robot.oi.getY(Robot.oi.joy1);
     double zaxis = Robot.oi.getZ(Robot.oi.joy1);
@@ -82,8 +83,11 @@ public class SubsystemTankDrive extends Subsystem {
     SmartDashboard.putNumber("Enc_r", enc_r.getRate());
     SmartDashboard.putNumber("Enc_l", enc_l.getRate());
 
-    double err;  
+      
     if(Math.abs(yaxis) > Math.abs(zaxis)){
+      if(pre_temp*yaxis < 0){
+        err = err*-1;
+      }
       err = enc_l.getRate() - enc_r.getRate();
       s_d_corr = Utils.navx.getRate() * d_gain;
       s_i_corr += err*i_gain;
@@ -94,6 +98,7 @@ public class SubsystemTankDrive extends Subsystem {
 
       SmartDashboard.putNumber("icorrection", s_i_corr);
       SmartDashboard.putNumber("dCorrection", s_d_corr);
+      pre_temp = yaxis;
 
     }else if(Math.abs(yaxis)<Math.abs(zaxis) && Math.abs(zaxis)>RobotSettings.zthresh){
       err = Utils.navx.getRate() - mapAngRate(zaxis);
