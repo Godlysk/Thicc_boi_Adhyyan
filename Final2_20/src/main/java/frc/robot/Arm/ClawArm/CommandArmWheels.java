@@ -29,9 +29,9 @@ public class CommandArmWheels extends Command {
     boolean shooterBackward = Robot.oi.joy2.getRawButton(Robot.joystick2.grabberShooterClose);
 
     if(shooterForward) {
-      Robot.armShooterWheels.turn(0.75);
+      Robot.armShooterWheels.turn(0.6);
     }else if(shooterBackward) {
-      Robot.armShooterWheels.turn(-0.75);
+      Robot.armShooterWheels.turn(-0.6);
     }else {
       Robot.armShooterWheels.turn(0);
     }

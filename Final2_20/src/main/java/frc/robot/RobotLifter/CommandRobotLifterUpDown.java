@@ -25,37 +25,89 @@ public class CommandRobotLifterUpDown extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    boolean upButton = Robot.oi.joy2.getRawButton( Robot.joystick2.robotLifterUpButton);
-    boolean downButton = Robot.oi.joy2.getRawButton( Robot.joystick2.robotLifterDownButton);
+    // boolean upButton = Robot.oi.joy2.getRawButton( Robot.joystick2.robotLifterUpButton);
+    // boolean downButton = Robot.oi.joy2.getRawButton( Robot.joystick2.robotLifterDownButton);
 
-    //individual lifter mechanism buttons
-    boolean leftUpButton = Robot.oi.joy1.getRawButton(Robot.joystick1.frontRobotLifterUpButton);    
-    boolean leftDownButton = Robot.oi.joy1.getRawButton(Robot.joystick1.frontRobotLifterDownButton);
-    boolean rightUpButton = Robot.oi.joy1.getRawButton(Robot.joystick1.backRobotLifterUpButton);
-    boolean rightDownButton = Robot.oi.joy1.getRawButton(Robot.joystick1.backRobotLifterDownButton);
+    // //individual lifter mechanism buttons
+    // boolean leftUpButton = Robot.oi.joy1.getRawButton(Robot.joystick1.frontRobotLifterUpButton);    
+    // boolean leftDownButton = Robot.oi.joy1.getRawButton(Robot.joystick1.frontRobotLifterDownButton);
+    // boolean rightUpButton = Robot.oi.joy1.getRawButton(Robot.joystick1.backRobotLifterUpButton);
+    // boolean rightDownButton = Robot.oi.joy1.getRawButton(Robot.joystick1.backRobotLifterDownButton);
 
-    //together PID
-    if(upButton) {
-      Robot.lifterUpSubsystem.lift(0.8); 
+    // //together PID
+    // if(upButton) {
+    //   Robot.lifterUpSubsystem.lift(0.8); 
+    // }
+    // else if(downButton) {
+    //   Robot.lifterUpSubsystem.lift(-0.8);
+    // }else{
+    //   Robot.lifterUpSubsystem.lift(0);
+    // }
+
+    
+
+    //move both together
+    if(Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterUpButton)){
+      Robot.lifterUpSubsystem.moveBoth(0.8, 0.8);
     }
-    else if(downButton) {
-      Robot.lifterUpSubsystem.lift(-0.8);
-    }else{
-      Robot.lifterUpSubsystem.lift(0);
+    else if(Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterDownButton)){
+      Robot.lifterUpSubsystem.moveBoth(-0.8, -0.8);
+    }
+    else{
+      if(Robot.oi.joy1.getRawButton(Robot.joystick1.frontRobotLifterDownButton)){
+        Robot.lifterUpSubsystem.moveForwardLift(-0.9);
+      } else if(Robot.oi.joy1.getRawButton(Robot.joystick1.frontRobotLifterUpButton)){
+        Robot.lifterUpSubsystem.moveForwardLift(0.9);
+      }else{
+        Robot.lifterUpSubsystem.moveForwardLift(0.0);
+      }
+
+      if(Robot.oi.joy1.getRawButton(Robot.joystick1.backRobotLifterDownButton)){
+        Robot.lifterUpSubsystem.moveBackLift(-0.9);
+      } else if(Robot.oi.joy1.getRawButton(Robot.joystick1.backRobotLifterUpButton)){
+        Robot.lifterUpSubsystem.moveBackLift(0.9);
+      }else{
+        Robot.lifterUpSubsystem.moveBackLift(0.0);
+      }
     }
 
-    //individual movement -up & down
-    if(leftUpButton) {
-      Robot.lifterUpSubsystem.liftingSpeeds(0.8, 0);
-    }else if(leftDownButton) {
-      Robot.lifterUpSubsystem.liftingSpeeds(-0.8, 0);
-    }else if(rightUpButton) {
-      Robot.lifterUpSubsystem.liftingSpeeds(0,0.8);
-    }else if(rightDownButton) {
-      Robot.lifterUpSubsystem.liftingSpeeds(0, -0.8);
-    }else {
-      Robot.lifterUpSubsystem.liftingSpeeds(0, 0);
-    }
+    //individual movement up & down
+    // if(Robot.oi.joy1.getRawButton(Robot.joystick1.frontRobotLifterDownButton)){
+    //   Robot.lifterUpSubsystem.moveForwardLift(-0.9);
+    // } else{
+    //   Robot.lifterUpSubsystem.moveForwardLift(0.0);
+    // }
+    
+    // if(Robot.oi.joy1.getRawButton(Robot.joystick1.frontRobotLifterUpButton)){
+    //   Robot.lifterUpSubsystem.moveForwardLift(0.9);
+    // }else{
+    //   Robot.lifterUpSubsystem.moveForwardLift(0.0);
+    // }
+
+    // if(Robot.oi.joy1.getRawButton(Robot.joystick1.backRobotLifterDownButton)){
+    //   Robot.lifterUpSubsystem.moveBackLift(-0.9);
+    // } else{
+    //   Robot.lifterUpSubsystem.moveBackLift(0.0);
+    // }
+    
+    // if(Robot.oi.joy1.getRawButton(Robot.joystick1.backRobotLifterUpButton)){
+    //   Robot.lifterUpSubsystem.moveBackLift(0.9);
+    // }
+    // else{
+    //   Robot.lifterUpSubsystem.moveBackLift(0.0);
+    // }
+
+
+    
+    
+    
+
+    
+    
+    
+    
+    
+
   }
 
   // Make this return true when this Command no longer needs to run execute()

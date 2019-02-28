@@ -18,15 +18,15 @@ public class CommandBrake extends InstantCommand {
    * Add your docs here.
    */
   public CommandBrake() {
-    super();
     // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
     requires(Robot.tankDriveSubsystem);
   }
 
   // Called once when the command executes
   @Override
   protected void initialize() {
-    Robot.tankDriveSubsystem.drive(0,0);
+    Robot.tankDriveSubsystem.drive(0, 0);
   }
 
 }

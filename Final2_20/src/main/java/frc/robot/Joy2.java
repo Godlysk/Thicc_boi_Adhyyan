@@ -18,8 +18,10 @@ public class Joy2 {
     // public int rotateArmToAngleButton = 4;
     public int robotLifterUpButton = 8;
     public int robotLifterDownButton = 7;
+    
     public int robotLifterForwardButton = 10;
     public int robotLifterBackwardButton = 9;
+
     public int grabberShooterOpen = 11;
     public int grabberShooterClose =12;
     

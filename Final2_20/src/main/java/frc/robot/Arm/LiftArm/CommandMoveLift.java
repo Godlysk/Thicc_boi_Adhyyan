@@ -30,7 +30,7 @@ public class CommandMoveLift extends Command {
     if(moveUpButton){
       Robot.armLiftSubsystem.liftMotor.set(0.8);
     }else if(moveDownButton){
-      Robot.armLiftSubsystem.liftMotor.set(-0.7);
+      Robot.armLiftSubsystem.liftMotor.set(-0.8);
     }else{
       Robot.armLiftSubsystem.liftMotor.set(0);
     }

@@ -25,6 +25,8 @@ public class CommandRotateArmJoy extends Command {
   @Override
   protected void execute() {
     double yaxis = -Robot.oi.getY(Robot.oi.joy2);
+    if (yaxis < 0.1 && yaxis > 0.04) yaxis = 0.1;
+    else if (yaxis > -0.1 && yaxis < -0.04) yaxis = -0.1;
     Robot.rotateArmSubsystem.rotMotor.set(yaxis);
   }
 

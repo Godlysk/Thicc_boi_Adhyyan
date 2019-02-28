@@ -43,24 +43,33 @@ public class SubsystemTankDrive extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new CommandRetardedDrive());
+    setDefaultCommand(new CommandSteerDrive());
   }
 
 //SteerDrive
 //---------------------------------
   double steer_corr = 0;
+  double z_deadband = 0.04;
   public void steerDrive()
   {
     double yaxis = Robot.oi.getY(Robot.oi.joy1);
     double zaxis = Robot.oi.getZ(Robot.oi.joy1);
+    z_deadband = 0.04 + Math.abs(yaxis) * 0.05;
+
+    SmartDashboard.putNumber("yaxis_joy", yaxis);
+    SmartDashboard.putNumber("zaxis_joy", zaxis);
+
+    if(Math.abs(zaxis)<0.04){
+      zaxis=0;
+    }
     double err, leftSpeed, rightSpeed;
     err = Utils.navx.getRate() - mapAngRate(zaxis);
-    double p_corr = 0.1*err;
+    double p_corr = 0.2*err;
     steer_corr += err*0.01;
     leftSpeed =  yaxis*RobotSettings.ysens + (-1*(steer_corr + p_corr));
     rightSpeed = yaxis*RobotSettings.ysens+ (steer_corr + p_corr);
 
-    smoothDrive(leftSpeed, rightSpeed);
+    drive(leftSpeed, rightSpeed);
   }
 //---------------------------------
   
@@ -68,7 +77,7 @@ public class SubsystemTankDrive extends Subsystem {
 //PIDRetardedDrive
 //-------------------------------------
   
-  double d_gain = 0;
+  double d_gain = 0.01;
   double i_gain = 0.0005;
   double p_gain = 0;//0.0000;
   
@@ -76,6 +85,8 @@ public class SubsystemTankDrive extends Subsystem {
   double t_corr=0;
   double pre_temp = 0;
   double err = 0;
+
+
   public void PIDRetardedDrive(){
     double rightSpeed , leftSpeed;
     double yaxis = Robot.oi.getY(Robot.oi.joy1);
@@ -116,7 +127,7 @@ public class SubsystemTankDrive extends Subsystem {
       rightSpeed = 0;
       leftSpeed = 0;
     }
-    smoothDrive(leftSpeed, rightSpeed);
+    drive(leftSpeed, rightSpeed);
   }
 //-------------------------------------
 

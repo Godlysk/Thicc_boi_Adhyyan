@@ -33,7 +33,6 @@ public class RobotMap {
 
 
   public static int liftMotor_port = 5;
-
   public static int rotateArm_port = 6;
 
   //subsystemRobotLifterup
