@@ -24,10 +24,17 @@ public class CommandRotateArmJoy extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double yaxis = -Robot.oi.getY(Robot.oi.joy2);
-    if (yaxis < 0.1 && yaxis > 0.04) yaxis = 0.1;
-    else if (yaxis > -0.1 && yaxis < -0.04) yaxis = -0.1;
-    Robot.rotateArmSubsystem.rotMotor.set(yaxis);
+    double yaxis = Robot.oi.getY(Robot.oi.joy2);
+    if(yaxis < 0.1 && yaxis > 0.04) {
+      yaxis = 0.1;
+    }
+    else if(yaxis > -0.1 && yaxis < -0.04) {
+      yaxis = -0.1;
+    } 
+    else {
+      Robot.rotateArmSubsystem.rotMotor.set(-yaxis);
+    }
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
