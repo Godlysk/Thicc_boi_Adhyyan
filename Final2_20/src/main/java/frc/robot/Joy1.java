@@ -7,15 +7,16 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.*;
-import frc.robot.Chassis.*;
 import frc.robot.Robot;
 import frc.robot.Chassis.CommandRetardedDrive;
+import frc.robot.commands.CommandTrackServo;
 import frc.robot.Chassis.CommandBrake;
 
 public class Joy1 {
     
-    Button commandRetardedDriveButton, commandBrakeMoveButton;
+    Button commandRetardedDriveButton, commandBrakeMoveButton, commandTrackServoButton;
     public int steerButton = 2;
     public int brakeButton = 1;
     public int expButton = 10;
@@ -23,6 +24,7 @@ public class Joy1 {
     public int frontRobotLifterDownButton = 3;
     public int backRobotLifterUpButton = 6;
     public int backRobotLifterDownButton = 4;
+    public int servoTrackButton = 8;
     
 
     public Joy1() {
@@ -34,6 +36,10 @@ public class Joy1 {
         commandBrakeMoveButton = new JoystickButton(Robot.oi.joy1, brakeButton);
         commandBrakeMoveButton.whileHeld(new CommandBrake());
 
+
+        //Temporary Command track servo, delete later
+        commandTrackServoButton = new JoystickButton(Robot.oi.joy1, servoTrackButton);
+        commandTrackServoButton.whileHeld(new CommandTrackServo());
     }
 
 }
