@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.*;
 import frc.robot.Arm.RotateArm.CommandRotateArmToAngle;
+import frc.robot.Chassis.CommandMoveToDistance;
 import frc.robot.Chassis.CommandRetardedDrive;
 
 public class CommandGroupHatchPanel extends CommandGroup {
@@ -38,8 +39,8 @@ public class CommandGroupHatchPanel extends CommandGroup {
     requires(Robot.armLiftSubsystem);
     requires(Robot.solenoidArmSubsystem);
 
-    addSequential(new CommandMoveToDistance(), 0.5);
+    addSequential(new CommandMoveToDistance(0.3, 15), 0.5);
     addSequential(new CommandRotateArmToAngle(10), 0.3);
-    addSequential(new CommandMoveToDistance(), 0.1);
+    addSequential(new CommandMoveToDistance(0.3, -15), 0.1);
   }
 }

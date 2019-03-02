@@ -12,9 +12,9 @@ import frc.robot.Robot;
 
 public class CommandMoveToDistance extends Command {
   
-  double max_velocity, init, desired, travelled;
+  double circum = 15.24*Math.PI;
+  double rotations, degrees, travelled, desired, init, max_velocity,  acceleration_constant = 0.001;
   double current_velocity = 0.0;
-  double acceleration_constant = 0.001;
   
   public CommandMoveToDistance(double max, double dist) {
     // Use requires() here to declare subsystem dependencies
