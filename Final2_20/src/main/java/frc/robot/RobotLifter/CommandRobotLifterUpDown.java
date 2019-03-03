@@ -48,24 +48,24 @@ public class CommandRobotLifterUpDown extends Command {
 
     //move both together
     if(Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterUpButton)){
-      Robot.lifterUpSubsystem.moveBoth(0.8, 0.8);
+      Robot.lifterUpSubsystem.moveBoth(0.4, 0.4);
     }
     else if(Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterDownButton)){
-      Robot.lifterUpSubsystem.moveBoth(-0.8, -0.8);
+      Robot.lifterUpSubsystem.moveBoth(-0.4, -0.4);
     }
     else{
       if(Robot.oi.joy1.getRawButton(Robot.joystick1.frontRobotLifterDownButton)){
-        Robot.lifterUpSubsystem.moveForwardLift(-0.9);
+        Robot.lifterUpSubsystem.moveForwardLift(-0.4);
       } else if(Robot.oi.joy1.getRawButton(Robot.joystick1.frontRobotLifterUpButton)){
-        Robot.lifterUpSubsystem.moveForwardLift(0.9);
+        Robot.lifterUpSubsystem.moveForwardLift(0.4);
       }else{
         Robot.lifterUpSubsystem.moveForwardLift(0.0);
       }
 
       if(Robot.oi.joy1.getRawButton(Robot.joystick1.backRobotLifterDownButton)){
-        Robot.lifterUpSubsystem.moveBackLift(-0.9);
+        Robot.lifterUpSubsystem.moveBackLift(-0.4);
       } else if(Robot.oi.joy1.getRawButton(Robot.joystick1.backRobotLifterUpButton)){
-        Robot.lifterUpSubsystem.moveBackLift(0.9);
+        Robot.lifterUpSubsystem.moveBackLift(0.4);
       }else{
         Robot.lifterUpSubsystem.moveBackLift(0.0);
       }
@@ -73,25 +73,25 @@ public class CommandRobotLifterUpDown extends Command {
 
     //individual movement up & down
     // if(Robot.oi.joy1.getRawButton(Robot.joystick1.frontRobotLifterDownButton)){
-    //   Robot.lifterUpSubsystem.moveForwardLift(-0.9);
+    //   Robot.lifterUpSubsystem.moveForwardLift(-0.4);
     // } else{
     //   Robot.lifterUpSubsystem.moveForwardLift(0.0);
     // }
     
     // if(Robot.oi.joy1.getRawButton(Robot.joystick1.frontRobotLifterUpButton)){
-    //   Robot.lifterUpSubsystem.moveForwardLift(0.9);
+    //   Robot.lifterUpSubsystem.moveForwardLift(0.4);
     // }else{
     //   Robot.lifterUpSubsystem.moveForwardLift(0.0);
     // }
 
     // if(Robot.oi.joy1.getRawButton(Robot.joystick1.backRobotLifterDownButton)){
-    //   Robot.lifterUpSubsystem.moveBackLift(-0.9);
+    //   Robot.lifterUpSubsystem.moveBackLift(-0.4);
     // } else{
     //   Robot.lifterUpSubsystem.moveBackLift(0.0);
     // }
     
     // if(Robot.oi.joy1.getRawButton(Robot.joystick1.backRobotLifterUpButton)){
-    //   Robot.lifterUpSubsystem.moveBackLift(0.9);
+    //   Robot.lifterUpSubsystem.moveBackLift(0.4);
     // }
     // else{
     //   Robot.lifterUpSubsystem.moveBackLift(0.0);

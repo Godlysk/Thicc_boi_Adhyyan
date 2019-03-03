@@ -24,6 +24,8 @@ public class Joy1 {
     public int frontRobotLifterDownButton = 3;
     public int backRobotLifterUpButton = 6;
     public int backRobotLifterDownButton = 4;
+    
+    
     public int servoTrackButton = 8;
     
 

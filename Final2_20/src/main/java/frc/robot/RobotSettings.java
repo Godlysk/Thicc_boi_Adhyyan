@@ -2,8 +2,8 @@ package frc.robot;
 
 public class RobotSettings
 {
-    public static double ysens = 0.5;
-    public static double zsens = 2;
+    public static double ysens = 0;//0.5;
+    public static double zsens = 0;//2;
 
     public static double acceleration_max = 0.5;
 
@@ -25,6 +25,9 @@ public class RobotSettings
     
     //Joystick sensetivity at which the robot will approach the hatch dock.
     public static double autonomousDockSens = 0.3;
+
+
+    public static double USDigitalConstant = 0;//numOfClicks/360;
 }
 
 
