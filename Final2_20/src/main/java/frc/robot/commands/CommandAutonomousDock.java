@@ -27,13 +27,13 @@ public class CommandAutonomousDock extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() { 
-    Robot.tankDriveSubsystem.moveToAng(Robot.visionSubsystem.getTargFollowAng(), Robot.oi.joy1.getY()*RobotSettings.autonomousDockSens*-1);
+    Robot.tankDriveSubsystem.moveToAng(Robot.visionSubsystem.getTargFollowAng(), Robot.oi.getY(Robot.oi.joy1)*RobotSettings.autonomousDockSens);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.oi.joy1.getRawButton(11) || ((System.currentTimeMillis() - Robot.visionSubsystem.lastSeenTime) > 300) || Utils.getUltra()<40;//stops when you press 11 or when it stops seeing the target  }
+    return !Robot.oi.joy1.getRawButton(7); //|| ((System.currentTimeMillis() - Robot.visionSubsystem.lastSeenTime) > 300) || Utils.getUltra()<40;//stops when you press 11 or when it stops seeing the target  }
   }
   // Called once after isFinished returns true
   @Override

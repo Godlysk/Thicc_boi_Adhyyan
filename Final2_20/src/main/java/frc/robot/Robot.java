@@ -63,11 +63,10 @@ public class Robot extends TimedRobot {
     solenoidArmSubsystem = new SubsystemSolenoidArm();
     lifterUpSubsystem = new SubsystemRobotLifterUp();
     armShooterWheels = new SubsystemArmWheels();
-    //lifterForwardSubsystem = new SubsystemRobotLifterForward(); 
+    lifterForwardSubsystem = new SubsystemRobotLifterForward(); 
     oi = new OI();
     joystick1 = new Joy1();
-    joystick2 = new Joy2();
-    //table = NetworkTable.getTable("SmartDashboard");
+    joystick2 = new Joy2();  
   }
 
   boolean preExpButton = false;
@@ -75,6 +74,8 @@ public class Robot extends TimedRobot {
   
   @Override
   public void robotPeriodic() {
+
+    SmartDashboard.putNumber("fusedHeading", Utils.getCleanedHeading());
     
 //Exposure Mode Switching 
     boolean tempButton = Robot.oi.joy1.getRawButton(Robot.joystick1.expButton);
@@ -97,10 +98,13 @@ public class Robot extends TimedRobot {
 //-------------------------
 
 
+  if(oi.joy1.getRawButton(Robot.joystick1.navxReset)){
+    Utils.navx.reset();
+  } 
 
 
 
-  }
+}
 
 
 //disabled period

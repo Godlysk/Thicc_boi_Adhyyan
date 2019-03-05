@@ -163,8 +163,8 @@ public void PIDRetardedDrive(double yaxis, double zaxis){
   double i_corr_moveToAng = 0;
   public void moveToAng(double heading, double v)
   {
-    double kp = 0.003;
-    double ki = 0.000009;
+    double kp = 0.014;
+    double ki = 0.0;
     double error = heading - Utils.getCleanedHeading();
     i_corr_moveToAng += error*ki;
     double correction = i_corr_moveToAng + error*kp;

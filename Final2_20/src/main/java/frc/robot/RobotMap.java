@@ -40,7 +40,7 @@ public class RobotMap {
   public static int robotLifterUpMotor2 = 10;
 
   //subsystemRobotLifterForward
-  public static int robotLifterForwardMotor = 11;
+  // public static int robotLifterForwardMotor = 11;
 
   //shooter motors
   public static int shooterMotor1 = 7;

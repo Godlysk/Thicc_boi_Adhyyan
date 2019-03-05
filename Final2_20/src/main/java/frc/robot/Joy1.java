@@ -11,13 +11,16 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.*;
 import frc.robot.Robot;
 import frc.robot.Chassis.CommandRetardedDrive;
+import frc.robot.commands.CommandAutonomousDock;
 import frc.robot.commands.CommandTrackServo;
 import frc.robot.Chassis.CommandBrake;
 import frc.robot.Chassis.CommandMoveToDistance;
 
+import frc.robot.commands.*;
+
 public class Joy1 {
     
-    Button commandRetardedDriveButton, commandBrakeMoveButton, commandTrackServoButton, commandMoveSetDistanceButton;
+    Button commandRetardedDriveButton, commandBrakeMoveButton, commandTrackServoButton, commandMoveSetDistanceButton, commandAutonomousDockButton ;
     public int retardedButton = 9;
     public int brakeButton = 1;
     public int expButton = 10;
@@ -25,9 +28,13 @@ public class Joy1 {
     public int frontRobotLifterDownButton = 3;
     public int backRobotLifterUpButton = 6;
     public int backRobotLifterDownButton = 4;
+    public int navxReset = 12;
+
+    public int moveSetDistance = 11;
     
     
     public int servoTrackButton = 8;
+    public int autonomousDockButton = 7;
     
 
     public Joy1() {
@@ -44,8 +51,13 @@ public class Joy1 {
         commandTrackServoButton = new JoystickButton(Robot.oi.joy1, servoTrackButton);
         commandTrackServoButton.whileHeld(new CommandTrackServo());
 
-        commandMoveSetDistanceButton= new JoystickButton(Robot.oi.joy1, 11);
+        commandMoveSetDistanceButton= new JoystickButton(Robot.oi.joy1, moveSetDistance);
         commandMoveSetDistanceButton.whenPressed(new CommandMoveToDistance(0.2, -20));
+
+        commandAutonomousDockButton= new JoystickButton(Robot.oi.joy1, autonomousDockButton);
+        commandAutonomousDockButton.whileHeld(new CommandAutonomousDock());
+
+        
 
 
         

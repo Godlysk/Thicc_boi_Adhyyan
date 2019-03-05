@@ -21,12 +21,12 @@ public class SubsystemRobotLifterForward extends Subsystem {
   WPI_TalonSRX motorLifterForward;
 
   public SubsystemRobotLifterForward() {
-    motorLifterForward = new WPI_TalonSRX(RobotMap.robotLifterForwardMotor);
+    //motorLifterForward = new WPI_TalonSRX(RobotMap.robotLifterForwardMotor);
 
   }
 
   public void drive(double forwardSpeed) {
-    motorLifterForward.set(forwardSpeed);
+    //motorLifterForward.set(forwardSpeed);
   }
 
 
@@ -35,6 +35,6 @@ public class SubsystemRobotLifterForward extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new CommandRobotLifterForward());
+    //setDefaultCommand(new CommandRobotLifterForward());
   }
 }
