@@ -50,22 +50,20 @@ public class SubsystemTankDrive extends Subsystem {
 //---------------------------------
   double steer_corr = 0;
   double z_deadband = 0.04;
-  public void steerDrive()
+  public void steerDrive(double yaxis, double zaxis)
   {
-    double yaxis = Robot.oi.getY(Robot.oi.joy1);
-    double zaxis = Robot.oi.getZ(Robot.oi.joy1);
     z_deadband = 0.04 + Math.abs(yaxis) * 0.05;
 
     SmartDashboard.putNumber("yaxis_joy", yaxis);
     SmartDashboard.putNumber("zaxis_joy", zaxis);
 
-    if(Math.abs(zaxis)<0.04){
+    if(Math.abs(zaxis)<0.03){
       zaxis=0;
     }
     double err, leftSpeed, rightSpeed;
     err = Utils.navx.getRate() - mapAngRate(zaxis);
-    double p_corr = 0.2*err;
-    steer_corr += err*0.01;
+    double p_corr = 0.25*err;
+    steer_corr += err*0.02;
     leftSpeed =  yaxis*RobotSettings.ysens + (-1*(steer_corr + p_corr));
     rightSpeed = yaxis*RobotSettings.ysens+ (steer_corr + p_corr);
 
@@ -74,62 +72,91 @@ public class SubsystemTankDrive extends Subsystem {
 //---------------------------------
   
 
+
+
+
 //PIDRetardedDrive
 //-------------------------------------
   
-  double d_gain = 0.01;
-  double i_gain = 0.0005;
-  double p_gain = 0;//0.0000;
+  // double d_gain = 0.01;
+  // double i_gain = 0.0;
+  // double p_gain = 0;//0.0000;
   
-  double s_d_corr, s_i_corr = 0, s_p_corr = 0;
-  double t_corr=0;
-  double pre_temp = 0;
-  double err = 0;
+  // double s_d_corr, s_i_corr = 0, s_p_corr = 0;
+  // double t_corr=0;
+  // double pre_temp = 0;
+  // double err = 0;
+  // public void PIDRetardedDrive(){
+  //   double rightSpeed , leftSpeed;
+  //   double yaxis = Robot.oi.getY(Robot.oi.joy1);
+  //   double zaxis = Robot.oi.getZ(Robot.oi.joy1);
 
+  //   SmartDashboard.putNumber("Rate of Rotation", Utils.navx.getRate());
 
-  public void PIDRetardedDrive(){
+      
+  //   if(Math.abs(yaxis) > Math.abs(zaxis)){
+  //     err = enc_l.getRate() - enc_r.getRate();
+  //     s_d_corr = Utils.navx.getRate() * d_gain;
+  //     s_i_corr += err*i_gain;
+  //     s_p_corr = err*p_gain;
+
+  //     rightSpeed = yaxis*RobotSettings.ysens + s_d_corr + s_i_corr + s_p_corr;
+  //     leftSpeed = yaxis*RobotSettings.ysens - s_d_corr - s_i_corr - s_p_corr;
+
+  //     SmartDashboard.putNumber("icorrection", s_i_corr);
+  //     SmartDashboard.putNumber("dCorrection", s_d_corr);
+
+  //   }else if(Math.abs(yaxis)<Math.abs(zaxis) && Math.abs(zaxis)>RobotSettings.zthresh){
+  //     err = Utils.navx.getRate() - mapAngRate(zaxis);
+  //     double p_corr = 0.2*err;
+  //     t_corr+=err*0.02;
+
+  //     leftSpeed =  -1*(t_corr + p_corr);
+  //     rightSpeed = (t_corr + p_corr);
+  //   }
+  //   else
+  //   {
+  //     t_corr = 0;
+  //     s_d_corr = 0;
+  //     rightSpeed = 0;
+  //     leftSpeed = 0;
+  //   }
+  //   drive(leftSpeed, rightSpeed);
+  // }
+//-------------------------------------
+
+public void PIDRetardedDrive(double yaxis, double zaxis){
     double rightSpeed , leftSpeed;
-    double yaxis = Robot.oi.getY(Robot.oi.joy1);
-    double zaxis = Robot.oi.getZ(Robot.oi.joy1);
 
-    SmartDashboard.putNumber("Enc_r", enc_r.getRate());
-    SmartDashboard.putNumber("Enc_l", enc_l.getRate());
+    SmartDashboard.putNumber("Rate of Rotation", Utils.navx.getRate());
 
       
     if(Math.abs(yaxis) > Math.abs(zaxis)){
-      if(pre_temp*yaxis < 0){
-        err = err*-1;
-      }
-      err = enc_l.getRate() - enc_r.getRate();
-      s_d_corr = Utils.navx.getRate() * d_gain;
-      s_i_corr += err*i_gain;
-      s_p_corr = err*p_gain;
-
-      rightSpeed = yaxis*RobotSettings.ysens + s_d_corr + s_i_corr + s_p_corr;
-      leftSpeed = yaxis*RobotSettings.ysens - s_d_corr - s_i_corr - s_p_corr;
-
-      SmartDashboard.putNumber("icorrection", s_i_corr);
-      SmartDashboard.putNumber("dCorrection", s_d_corr);
-      pre_temp = yaxis;
-
+      zaxis = 0;
     }else if(Math.abs(yaxis)<Math.abs(zaxis) && Math.abs(zaxis)>RobotSettings.zthresh){
-      err = Utils.navx.getRate() - mapAngRate(zaxis);
-      double p_corr = 0.2*err;
-      t_corr+=err*0.02;
-
-      leftSpeed =  -1*(t_corr + p_corr);
-      rightSpeed = (t_corr + p_corr);
+      yaxis = 0;
     }
     else
     {
-      t_corr = 0;
-      s_d_corr = 0;
-      rightSpeed = 0;
-      leftSpeed = 0;
+      zaxis = 0;
+      yaxis = 0;
     }
+    z_deadband = 0.04 + Math.abs(yaxis) * 0.05;
+
+    SmartDashboard.putNumber("yaxis_joy", yaxis);
+    SmartDashboard.putNumber("zaxis_joy", zaxis);
+
+    if(Math.abs(zaxis)<0.03){
+      zaxis=0;
+    }
+    double err;
+    err = Utils.navx.getRate() - mapAngRate(zaxis);
+    double p_corr = 0.25*err;
+    steer_corr += err*0.02;
+    leftSpeed =  yaxis*RobotSettings.ysens + (-1*(steer_corr + p_corr));
+    rightSpeed = yaxis*RobotSettings.ysens+ (steer_corr + p_corr);
     drive(leftSpeed, rightSpeed);
   }
-//-------------------------------------
 
 //moveToAng
 //-------------------------------------

@@ -28,11 +28,11 @@ public class CommandRotateArmJoy extends Command {
     
     if(Math.abs(yaxis)<0.03){
       yaxis = 0;
-    }else if(yaxis>=0.03 && yaxis<0.1){
-      yaxis = 0.1;
+    }else if(yaxis>=0.02 && yaxis<0.15){
+      yaxis = 0.15;
     }
-    else if(yaxis<-0.03 && yaxis>-0.1){
-      yaxis = -0.1;
+    else if(yaxis<-0.02 && yaxis>-0.15){
+      yaxis = -0.15;
     }
 
     

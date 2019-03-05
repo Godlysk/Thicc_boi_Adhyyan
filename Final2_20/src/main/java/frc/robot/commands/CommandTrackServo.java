@@ -19,7 +19,9 @@ public class CommandTrackServo extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.visionSubsystem.camServo.setAngle(90);
   }
+
 
   // Called repeatedly when this Command is scheduled to run
   @Override

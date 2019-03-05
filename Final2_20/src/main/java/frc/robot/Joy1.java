@@ -13,11 +13,12 @@ import frc.robot.Robot;
 import frc.robot.Chassis.CommandRetardedDrive;
 import frc.robot.commands.CommandTrackServo;
 import frc.robot.Chassis.CommandBrake;
+import frc.robot.Chassis.CommandMoveToDistance;
 
 public class Joy1 {
     
-    Button commandRetardedDriveButton, commandBrakeMoveButton, commandTrackServoButton;
-    public int steerButton = 2;
+    Button commandRetardedDriveButton, commandBrakeMoveButton, commandTrackServoButton, commandMoveSetDistanceButton;
+    public int retardedButton = 9;
     public int brakeButton = 1;
     public int expButton = 10;
     public int frontRobotLifterUpButton = 5;
@@ -30,8 +31,8 @@ public class Joy1 {
     
 
     public Joy1() {
-        //Steer drive function - button 1
-        commandRetardedDriveButton = new JoystickButton(Robot.oi.joy1, steerButton);
+        //retarded drive function - button 1
+        commandRetardedDriveButton = new JoystickButton(Robot.oi.joy1, retardedButton);
         commandRetardedDriveButton.whileHeld(new CommandRetardedDrive());
 
         //Command Brake - Chassis - stops everything in the chassis subsystem
@@ -42,6 +43,12 @@ public class Joy1 {
         //Temporary Command track servo, delete later
         commandTrackServoButton = new JoystickButton(Robot.oi.joy1, servoTrackButton);
         commandTrackServoButton.whileHeld(new CommandTrackServo());
+
+        commandMoveSetDistanceButton= new JoystickButton(Robot.oi.joy1, 11);
+        commandMoveSetDistanceButton.whenPressed(new CommandMoveToDistance(0.2, -20));
+
+
+        
     }
 
 }

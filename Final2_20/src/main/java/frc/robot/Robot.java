@@ -17,6 +17,8 @@ import frc.robot.Chassis.*;
 import frc.robot.RobotLifter.SubsystemRobotLifterForward;
 import frc.robot.RobotLifter.SubsystemRobotLifterUp;
 import frc.robot.subsystems.*;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 
 /**
@@ -42,6 +44,13 @@ public class Robot extends TimedRobot {
   public static SubsystemArmWheels armShooterWheels;
   public static Joy1 joystick1;
   public static Joy2 joystick2;
+
+
+
+  //public static NetworkTable table;
+
+
+  public static PowerDistributionPanel pdp = new PowerDistributionPanel();
 //---------------------------
 
 
@@ -54,12 +63,11 @@ public class Robot extends TimedRobot {
     solenoidArmSubsystem = new SubsystemSolenoidArm();
     lifterUpSubsystem = new SubsystemRobotLifterUp();
     armShooterWheels = new SubsystemArmWheels();
-
-    //lifterForwardSubsystem = new SubsystemRobotLifterForward();
-    
+    //lifterForwardSubsystem = new SubsystemRobotLifterForward(); 
     oi = new OI();
     joystick1 = new Joy1();
     joystick2 = new Joy2();
+    //table = NetworkTable.getTable("SmartDashboard");
   }
 
   boolean preExpButton = false;
@@ -67,18 +75,30 @@ public class Robot extends TimedRobot {
   
   @Override
   public void robotPeriodic() {
+    
+//Exposure Mode Switching 
     boolean tempButton = Robot.oi.joy1.getRawButton(Robot.joystick1.expButton);
 
     if(tempButton && !preExpButton)
     {
       ExposureSetting = !ExposureSetting;
     }
-
     preExpButton = tempButton;
-    SmartDashboard.putNumber("ExpAuto", ExposureSetting? 1.0: 0.0);
+//-------------------------
 
-    SmartDashboard.putNumber("Pitch ", Utils.navx.getPitch());
-    SmartDashboard.putNumber("X-axis ", Utils.navx.getRawGyroX());
+//Drive sensetivity mode switching
+  if(oi.joy1.getRawButton(2)){
+    RobotSettings.ysens = 0.3;
+    RobotSettings.zsens = 0.2;
+  } else{
+    RobotSettings.ysens = 0.6;
+    RobotSettings.zsens = 2;
+  }
+//-------------------------
+
+
+
+
 
   }
 
@@ -87,6 +107,7 @@ public class Robot extends TimedRobot {
 //-----------------------
   @Override
   public void disabledInit() {
+    
   }
 
   @Override
@@ -124,6 +145,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+    
     Scheduler.getInstance().run();
   }
 

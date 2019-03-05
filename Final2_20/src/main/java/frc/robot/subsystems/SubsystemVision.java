@@ -7,7 +7,7 @@ import frc.robot.RobotSettings;
 import frc.robot.*;
 
 public class SubsystemVision extends Subsystem{
-    public static Servo camServo;
+    public Servo camServo;
     public double servoAng;
 
 
@@ -16,18 +16,17 @@ public class SubsystemVision extends Subsystem{
 
     double tape1 = RobotSettings.center;
     double tape2 = RobotSettings.center;
-    boolean tape1_is_visible = true;
-    boolean tape2_is_visible = true;
+    public boolean tape1_is_visible = true;
+    public boolean tape2_is_visible = true;
 
     public SubsystemVision(){
         camServo = new Servo(RobotMap.front_cam_servo_port);
-        servoAng = camServo.getAngle();
+        servoAng = 90;//camServo.getAngle();
     }
 
     public void initDefaultCommand() {
     }
 
-    
     public long lastSeenTime = 0; //stores the time when both the tapes were shown
 
     public void getTarget(){
@@ -36,6 +35,7 @@ public class SubsystemVision extends Subsystem{
         double temp1 = SmartDashboard.getNumberArray("tape1", defaultArray)[0];
         if(temp1 !=-1){
             tape1 = temp1;
+            tape1_is_visible = true;
         }else {
             tape1_is_visible = false;
         }
@@ -43,6 +43,8 @@ public class SubsystemVision extends Subsystem{
         double temp2 = SmartDashboard.getNumberArray("tape2", defaultArray)[0];
         if(temp2!=-1){
             tape2 = temp2;
+            tape1_is_visible = true;
+
         }else{
             tape2_is_visible = false;
         }
@@ -59,7 +61,7 @@ public class SubsystemVision extends Subsystem{
         getTarget();
         double error = RobotSettings.center - targX;
         if(tape1_is_visible || tape2_is_visible){            
-            servoAng += Math.abs(error)>3?error*0.03:0;
+            servoAng += Math.abs(error)>3?error*0.05:0;
         }
         camServo.setAngle(servoAng);
     }
@@ -86,7 +88,6 @@ public class SubsystemVision extends Subsystem{
         }else if(temp<=-80){
             temp =  -80;
         }
-
         return temp;
     }
     //if the robot is not resposive to the change in angle, go to tankdrive and go to moveToAng function and increase kp

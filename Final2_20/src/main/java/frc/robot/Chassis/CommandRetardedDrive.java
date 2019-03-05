@@ -27,14 +27,16 @@ public class CommandRetardedDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.tankDriveSubsystem.PIDRetardedDrive();
+    double yaxis = Robot.oi.getY(Robot.oi.joy1);
+    double zaxis = Robot.oi.getZ(Robot.oi.joy1);
+    Robot.tankDriveSubsystem.PIDRetardedDrive(yaxis, zaxis);
     
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return !Robot.oi.joy1.getRawButton(Robot.joystick1.steerButton);
+    return !Robot.oi.joy1.getRawButton(Robot.joystick1.retardedButton);
   }
 
   // Called once after isFinished returns true

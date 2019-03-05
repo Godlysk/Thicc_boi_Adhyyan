@@ -5,31 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Chassis;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.*;
-import edu.wpi.first.wpilibj.smartdashboard.*;
+import frc.robot.Robot;
 
-public class CommandSteerDrive extends Command {
-  public CommandSteerDrive() {
+public class CommandTempCommand extends Command {
+  public CommandTempCommand() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.tankDriveSubsystem);
+    requires(Robot.rotateArmSubsystem);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.tankDriveSubsystem.enc_l.reset();
-
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double yaxis = Robot.oi.getY(Robot.oi.joy1);
-    double zaxis = Robot.oi.getZ(Robot.oi.joy1);
-    Robot.tankDriveSubsystem.steerDrive(yaxis, zaxis);
     
   }
 
@@ -42,13 +36,11 @@ public class CommandSteerDrive extends Command {
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.tankDriveSubsystem.drive(0,0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    
   }
 }
