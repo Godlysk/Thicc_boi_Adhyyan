@@ -61,7 +61,7 @@ public class SubsystemVision extends Subsystem{
         getTarget();
         double error = RobotSettings.center - targX;
         if(tape1_is_visible || tape2_is_visible){            
-            servoAng += Math.abs(error)>2?error*0.025:0;
+            servoAng += Math.abs(error)>1?error*0.03:0;
             camServo.setAngle(servoAng);
         }
         else{
@@ -84,7 +84,7 @@ public class SubsystemVision extends Subsystem{
     
     public double getTargFollowAng(){   
         get_angle_to_target();
-        double sensetivity = 3; //if the angle relative to the target are too drastic, decrease this. should be greater than 1 though. 
+        double sensetivity = 3.4; //if the angle relative to the target are too drastic, decrease this. should be greater than 1 though. 
         double temp = sensetivity*(Utils.getCleanedHeading() + angle_to_target); //main equation. basically takes the absolute heading from the robot to the target and then overshoots in order to become parallel ot the target. 
         //limit the angle at which the which the robot should move. 
         if (temp>=80){

@@ -19,6 +19,9 @@ import frc.robot.RobotLifter.SubsystemRobotLifterUp;
 import frc.robot.subsystems.*;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj.shuffleboard.*;
+import edu.wpi.first.networktables.NetworkTableEntry;
 
 
 /**
@@ -46,8 +49,13 @@ public class Robot extends TimedRobot {
   public static Joy2 joystick2;
 
 
+  ShuffleboardTab tab = Shuffleboard.getTab("LiveWindow");
+  NetworkTableEntry valueEntry = tab.add("Value -kp", 0).getEntry();
 
-  //public static NetworkTable table;
+
+
+
+  public static NetworkTable table;
 
 
   public static PowerDistributionPanel pdp = new PowerDistributionPanel();
@@ -96,6 +104,8 @@ public class Robot extends TimedRobot {
     RobotSettings.zsens = 2;
   }
 //-------------------------
+
+
 
 
   if(oi.joy1.getRawButton(Robot.joystick1.navxReset)){
@@ -161,6 +171,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
+    System.out.println(valueEntry);
   }
 
 //-----------------------
