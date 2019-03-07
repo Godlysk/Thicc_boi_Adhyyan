@@ -14,8 +14,8 @@ import frc.robot.RobotSettings;
 public class CommandMoveToDistance extends Command {
   
   double circum = 15.24*Math.PI;
-  double error;
-  double rotations, degrees, travelled, desired_rotations, init, max_velocity,  acceleration_constant = 0.001;
+  double error, correction, targetspeed, currspeed;
+  double rotations, degrees, travelled, desired_rotations, init, max_velocity,  acceleration_constant, desired_acceleration_period, loop_time;
   double kp;
 
   long last_time = 0;
@@ -33,6 +33,13 @@ public class CommandMoveToDistance extends Command {
     {
       kp = 0.05;
     }
+
+    desired_acceleration_period = 400; 
+    loop_time = 20;
+
+    acceleration_constant = max_velocity/(desired_acceleration_period/loop_time);
+    currspeed = 0;
+
   }
 
   // Called just before this Command runs the first time
@@ -60,7 +67,7 @@ public class CommandMoveToDistance extends Command {
     
     error = desired_rotations*360 - ((Robot.tankDriveSubsystem.enc_r.get() / RobotSettings.USDigitalConstant)*360);
     
-    double correction = error * kp;
+    correction = error * kp;
 
     if(correction>max_velocity){
       correction = max_velocity;
@@ -69,11 +76,20 @@ public class CommandMoveToDistance extends Command {
       correction = -max_velocity;
     }
 
-    if(Math.abs(error)>error_leeway)
+    if(Math.abs(error) > error_leeway)
     {
       last_time = System.currentTimeMillis();
     }
-    Robot.tankDriveSubsystem.PIDRetardedDrive(correction*(1/RobotSettings.ysens[0]), 0);
+
+    targetspeed = correction*(1/RobotSettings.ysens[0]);
+
+    if (targetspeed > currspeed) {
+      currspeed += acceleration_constant;
+    } else {
+      currspeed = targetspeed;
+    }
+
+    Robot.tankDriveSubsystem.PIDRetardedDrive(currspeed, 0);
 
   }
 
