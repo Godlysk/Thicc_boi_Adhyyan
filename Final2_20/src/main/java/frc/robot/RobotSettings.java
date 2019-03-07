@@ -29,7 +29,7 @@ public class RobotSettings
     public static double autonomousDockSens = 0.3;
 
 
-    public static double USDigitalConstant = 203.8;//numOfClicks/360;
+    public static double USDigitalConstant = 225;
 
 
 

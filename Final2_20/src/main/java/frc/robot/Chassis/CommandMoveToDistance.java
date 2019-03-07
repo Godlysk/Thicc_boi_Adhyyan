@@ -19,6 +19,8 @@ public class CommandMoveToDistance extends Command {
   double kp;
 
   long last_time = 0;
+
+  double error_leeway = 10;
   
   public CommandMoveToDistance(double max, double dist) {
     // Use requires() here to declare subsystem dependencies
@@ -42,6 +44,7 @@ public class CommandMoveToDistance extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    
 
     // if (travelled<desired_rotations/2) {
     //   if (current_velocity < max_velocity) {
@@ -66,7 +69,7 @@ public class CommandMoveToDistance extends Command {
       correction = -max_velocity;
     }
 
-    if(Math.abs(error)>10)
+    if(Math.abs(error)>error_leeway)
     {
       last_time = System.currentTimeMillis();
     }
@@ -77,7 +80,7 @@ public class CommandMoveToDistance extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Math.abs(error)<10 && System.currentTimeMillis() - last_time > 10;
+    return Math.abs(error)<error_leeway && System.currentTimeMillis() - last_time > 200;
   }
 
   // Called once after isFinished returns true

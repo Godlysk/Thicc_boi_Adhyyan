@@ -9,6 +9,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.*;
 import frc.robot.CommandGroupHatchPanelCollect;
+import frc.robot.Arm.RotateArm.CommandRotateArmToAngle;
 
 public class Joy2 {
     Button CommandRotateArmToAngleButton, CommandGroupHatchPanelCollectButton;
@@ -19,7 +20,9 @@ public class Joy2 {
     public int hatchPanelCollectButton = 4;
     public int robotLifterUpButton = 8;
     public int robotLifterDownButton = 7;
-    
+
+    public int rotateArmToAngleButton = 6;
+
     public int robotLifterForwardButton = 10;
     public int robotLifterBackwardButton = 9;
 
@@ -28,9 +31,9 @@ public class Joy2 {
 
     
     public Joy2() {
-        // rotate arm to angle function - button 4
-        // CommandRotateArmToAngleButton = new JoystickButton(Robot.oi.joy2, rotateArmToAngleButton);
-        // CommandRotateArmToAngleButton.whileHeld(new CommandRotateArmToAngle(30));
+        
+        CommandRotateArmToAngleButton = new JoystickButton(Robot.oi.joy2, rotateArmToAngleButton);
+        CommandRotateArmToAngleButton.whileHeld(new CommandRotateArmToAngle(30, 0.2, 0.6));
 
         CommandGroupHatchPanelCollectButton = new JoystickButton(Robot.oi.joy2, hatchPanelCollectButton);
         CommandGroupHatchPanelCollectButton.whenReleased(new CommandGroupHatchPanelCollect());

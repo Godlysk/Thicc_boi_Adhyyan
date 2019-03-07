@@ -55,7 +55,7 @@ public class Joy1 {
         commandTrackServoButton.whileHeld(new CommandTrackServo());
 
         commandMoveSetDistanceButton= new JoystickButton(Robot.oi.joy1, moveSetDistance);
-        commandMoveSetDistanceButton.whenPressed(new CommandMoveToDistance(0.2, -20));
+        commandMoveSetDistanceButton.whenPressed(new CommandMoveToDistance(0.3, -200));
 
         commandAutonomousDockButton= new JoystickButton(Robot.oi.joy1, autonomousDockButton);
         commandAutonomousDockButton.whileHeld(new CommandAutonomousDock(false));
