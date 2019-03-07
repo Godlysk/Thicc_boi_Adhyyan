@@ -20,14 +20,11 @@ public class CommandRotateArmToAngle extends Command {
   public CommandRotateArmToAngle(double angle, double vel, double max) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-
     requires(Robot.rotateArmSubsystem);
 
     desired = angle * encoderCountsPerDegrees;
     maximum = max;
     velocity = vel;
-
-
   }
 
   // Called just before this Command runs the first time

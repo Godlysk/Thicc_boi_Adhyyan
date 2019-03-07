@@ -165,13 +165,17 @@ public void PIDRetardedDrive(double yaxis, double zaxis){
   double i_corr_moveToAng = 0;
   public void moveToAng(double heading, double v)
   {
-    double kp = 0.0015;
-    double ki = 0.0;
+    double kp = 0.004;
+    double ki = 0.000000;
     double error = Utils.normaliseHeading(heading - Utils.getCleanedHeading());
     i_corr_moveToAng += error*ki;
     double correction = i_corr_moveToAng + error*kp;
     correction = Math.signum(correction)*Math.min(Math.abs(correction), 0.1);
-    drive(v+correction, v-correction);
+    double correction2 = 1 + correction/0.40;
+    double bound = 1.3;
+    correction2 = Math.min(correction2, bound);
+    correction2 = Math.max(correction2, 1/bound);
+    drive(v*(2-correction2), v*correction2);
   }
 //-------------------------------------
 
