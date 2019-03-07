@@ -57,15 +57,16 @@ public class SubsystemTankDrive extends Subsystem {
     SmartDashboard.putNumber("yaxis_joy", yaxis);
     SmartDashboard.putNumber("zaxis_joy", zaxis);
 
-    if(Math.abs(zaxis)<0.03){
+    if(Math.abs(zaxis)<RobotSettings.zthresh_steer){
       zaxis=0;
     }
     double err, leftSpeed, rightSpeed;
     err = Utils.navx.getRate() - mapAngRate(zaxis);
-    double p_corr = 0.25*err;
+    double p_corr = 0.31*err;
     steer_corr += err*0.02;
-    leftSpeed =  yaxis*RobotSettings.ysens + (-1*(steer_corr + p_corr));
-    rightSpeed = yaxis*RobotSettings.ysens+ (steer_corr + p_corr);
+    int speedIndex = Robot.oi.joy1.getRawButton(2)?1:0;
+    leftSpeed =  yaxis*RobotSettings.ysens[speedIndex] + (-1*(steer_corr + p_corr));
+    rightSpeed = yaxis*RobotSettings.ysens[speedIndex] + (steer_corr + p_corr);
 
     drive(leftSpeed, rightSpeed);
   }
@@ -151,10 +152,11 @@ public void PIDRetardedDrive(double yaxis, double zaxis){
     }
     double err;
     err = Utils.navx.getRate() - mapAngRate(zaxis);
-    double p_corr = 0.25*err;
-    steer_corr += err*0.02;
-    leftSpeed =  yaxis*RobotSettings.ysens + (-1*(steer_corr + p_corr));
-    rightSpeed = yaxis*RobotSettings.ysens+ (steer_corr + p_corr);
+    double p_corr = 0.3*err;
+    steer_corr += err*0.012;
+    int speedIndex = Robot.oi.joy1.getRawButton(2)?1:0;
+    leftSpeed =  yaxis* RobotSettings.ysens[speedIndex] + (-1*(steer_corr + p_corr));
+    rightSpeed = yaxis* RobotSettings.ysens[speedIndex] + (steer_corr + p_corr);
     drive(leftSpeed, rightSpeed);
   }
 
@@ -163,9 +165,9 @@ public void PIDRetardedDrive(double yaxis, double zaxis){
   double i_corr_moveToAng = 0;
   public void moveToAng(double heading, double v)
   {
-    double kp = 0.006;
-    double ki = 0.00001;
-    double error = heading - Utils.getCleanedHeading();
+    double kp = 0.0015;
+    double ki = 0.0;
+    double error = Utils.normaliseHeading(heading - Utils.getCleanedHeading());
     i_corr_moveToAng += error*ki;
     double correction = i_corr_moveToAng + error*kp;
     correction = Math.signum(correction)*Math.min(Math.abs(correction), 0.1);
@@ -179,7 +181,7 @@ public void PIDRetardedDrive(double yaxis, double zaxis){
   public double mapAngRate(double z)
   {
     //Map z_axis to angular rate to a similia range of navx.getRate()
-    return z*RobotSettings.zsens;
+    return z* (Robot.oi.joy1.getRawButton(2)?RobotSettings.zsens[1]:RobotSettings.zsens[0]);
   }
 
   public void drive(double left, double right)

@@ -20,21 +20,24 @@ import frc.robot.commands.*;
 
 public class Joy1 {
     
-    Button commandRetardedDriveButton, commandBrakeMoveButton, commandTrackServoButton, commandMoveSetDistanceButton, commandAutonomousDockButton ;
+    Button commandRetardedDriveButton, commandBrakeMoveButton, commandTrackServoButton;
+    Button commandMoveSetDistanceButton, commandAutonomousDockButton, commandAutonomousDockSlanted;
     public int retardedButton = 9;
     public int brakeButton = 1;
-    public int expButton = 10;
+    //public int expButton = 10;
     public int frontRobotLifterUpButton = 5;
     public int frontRobotLifterDownButton = 3;
     public int backRobotLifterUpButton = 6;
     public int backRobotLifterDownButton = 4;
     public int navxReset = 12;
+    
 
     public int moveSetDistance = 11;
     
     
-    public int servoTrackButton = 8;
+    public int servoTrackButton = 10;
     public int autonomousDockButton = 7;
+    public int autonomousDockSlantButton = 8; 
     
 
     public Joy1() {
@@ -55,12 +58,10 @@ public class Joy1 {
         commandMoveSetDistanceButton.whenPressed(new CommandMoveToDistance(0.2, -20));
 
         commandAutonomousDockButton= new JoystickButton(Robot.oi.joy1, autonomousDockButton);
-        commandAutonomousDockButton.whileHeld(new CommandAutonomousDock());
+        commandAutonomousDockButton.whileHeld(new CommandAutonomousDock(false));
 
-        
-
-
-        
+        commandAutonomousDockSlanted = new JoystickButton(Robot.oi.joy1, autonomousDockSlantButton);
+        commandAutonomousDockSlanted.whileHeld(new CommandAutonomousDock(true));
     }
 
 }

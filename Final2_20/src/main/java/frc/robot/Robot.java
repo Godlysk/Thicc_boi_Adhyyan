@@ -17,6 +17,9 @@ import frc.robot.Chassis.*;
 import frc.robot.RobotLifter.SubsystemRobotLifterForward;
 import frc.robot.RobotLifter.SubsystemRobotLifterUp;
 import frc.robot.subsystems.*;
+
+import java.util.Map;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.*;
@@ -49,11 +52,7 @@ public class Robot extends TimedRobot {
   public static Joy2 joystick2;
 
 
-  ShuffleboardTab tab = Shuffleboard.getTab("LiveWindow");
-  NetworkTableEntry valueEntry = tab.add("Value -kp", 0).getEntry();
-
-
-
+  
 
   public static NetworkTable table;
 
@@ -83,38 +82,28 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
 
+
+
     SmartDashboard.putNumber("fusedHeading", Utils.getCleanedHeading());
     
 //Exposure Mode Switching 
-    boolean tempButton = Robot.oi.joy1.getRawButton(Robot.joystick1.expButton);
+    // boolean tempButton = Robot.oi.joy1.getRawButton(Robot.joystick1.expButton);
 
-    if(tempButton && !preExpButton)
-    {
-      ExposureSetting = !ExposureSetting;
-    }
-    preExpButton = tempButton;
-//-------------------------
+    // if(tempButton && !preExpButton)
+    // {
+    //   ExposureSetting = !ExposureSetting;
+    // }
+    // preExpButton = tempButton;
 
-//Drive sensetivity mode switching
-  if(oi.joy1.getRawButton(2)){
-    RobotSettings.ysens = 0.3;
-    RobotSettings.zsens = 0.2;
-  } else{
-    RobotSettings.ysens = 0.6;
-    RobotSettings.zsens = 2;
-  }
-//-------------------------
+  
+  //visionSubsystem.getAngleSnapping(false);
 
-
-
-
+  SmartDashboard.putData(visionSubsystem);
   if(oi.joy1.getRawButton(Robot.joystick1.navxReset)){
     Utils.navx.reset();
   } 
-
-
-
 }
+
 
 
 //disabled period
@@ -171,7 +160,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
-    System.out.println(valueEntry);
+    
   }
 
 //-----------------------

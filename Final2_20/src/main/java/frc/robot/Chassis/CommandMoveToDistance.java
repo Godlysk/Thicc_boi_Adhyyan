@@ -70,7 +70,7 @@ public class CommandMoveToDistance extends Command {
     {
       last_time = System.currentTimeMillis();
     }
-    Robot.tankDriveSubsystem.PIDRetardedDrive(correction*(1/RobotSettings.ysens), 0);
+    Robot.tankDriveSubsystem.PIDRetardedDrive(correction*(1/RobotSettings.ysens[0]), 0);
 
   }
 

@@ -27,6 +27,8 @@ public class CommandTrackServo extends Command {
   @Override
   protected void execute() {
     Robot.visionSubsystem.trackServo();
+    System.out.println("LMAO");
+    //Robot.visionSubsystem.camServo.setAngle(90);
   }
 
   // Make this return true when this Command no longer needs to run execute()

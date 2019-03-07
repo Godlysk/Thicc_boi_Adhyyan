@@ -17,23 +17,40 @@ import edu.wpi.first.wpilibj.buttons.*;
  */
 public class OI {
   public Joystick joy1, joy2;
-  public Button brake, mode_shift;
-
+  
   public OI(){
     joy1 = new Joystick(1);
     joy2 = new Joystick(2);
   }
 
-  public double getY(Joystick joy){
-    return -joy.getY();
+  public double getY(Joystick joy, double band){
+    double val = -joy.getY();
+    if(Math.abs(val) < band){
+      val = 0;
+    } else{
+      val = val - Math.signum(val)*band;
+    } 
+    return val;
   }
 
-  public double getZ(Joystick joy){
-    return joy.getZ();
+  public double getZ(Joystick joy, double band){
+    double val = joy.getZ();
+    if(Math.abs(val) < band){
+      val = 0;
+    } else{
+      val = val - Math.signum(val)*band;
+    } 
+    return val;
   }
 
-  public double getX(Joystick joy){
-    return joy.getX();
+  public double getX(Joystick joy, double band){
+    double val = joy.getX();
+    if(Math.abs(val) < band){
+      val = 0;
+    } else{
+      val = val - Math.signum(val)*band;
+    } 
+    return val;
   }
 
   //// CREATING BUTTONS

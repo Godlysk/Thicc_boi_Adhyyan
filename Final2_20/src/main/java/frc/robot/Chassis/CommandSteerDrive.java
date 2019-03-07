@@ -27,8 +27,8 @@ public class CommandSteerDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double yaxis = Robot.oi.getY(Robot.oi.joy1);
-    double zaxis = Robot.oi.getZ(Robot.oi.joy1);
+    double yaxis = Robot.oi.getY(Robot.oi.joy1, 0.05);
+    double zaxis = Robot.oi.getZ(Robot.oi.joy1, RobotSettings.zthresh_steer);
     Robot.tankDriveSubsystem.steerDrive(yaxis, zaxis);
     
   }

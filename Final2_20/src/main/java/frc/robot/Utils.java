@@ -17,13 +17,23 @@ public class Utils {
     }
 
     
+    public static double normaliseHeading(double angle){
+        //parameter: any angle
+        //return: returns an angle between -180 and 180
+        while(angle>180){
+            angle -= 360;
+        }
+        while(angle < -180){
+            angle += 360;
+        }
+
+        return angle;
+    }
+
     public static double getCleanedHeading()
     {
         double temp = navx.getFusedHeading();
-        if(temp>180)
-        {
-        temp= temp-360;
-        }
-        return temp;
+        return normaliseHeading(temp);
+        
     }
 }

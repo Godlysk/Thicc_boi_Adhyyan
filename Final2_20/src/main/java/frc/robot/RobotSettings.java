@@ -2,14 +2,16 @@ package frc.robot;
 
 public class RobotSettings
 {
-    public static double ysens = 0.5;
-    public static double zsens = 1.4;
+    public static double[] ysens = {0.5, 0.3};
+    public static double[] zsens = {1.3, 0.3};
 
     public static double acceleration_max = 0.5;
 
 
     //deadband
-    public static double zthresh = 0.025;
+    public static double zthresh = 0.08;
+
+    public static double zthresh_steer = 0.05;
 
     //pixel center of the camera
     public static double center = 80;

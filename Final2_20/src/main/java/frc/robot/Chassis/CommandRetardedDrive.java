@@ -9,6 +9,7 @@ package frc.robot.Chassis;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotSettings;
 /**
  * An example command.  You can replace me with your own command.
  */
@@ -27,8 +28,8 @@ public class CommandRetardedDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double yaxis = Robot.oi.getY(Robot.oi.joy1);
-    double zaxis = Robot.oi.getZ(Robot.oi.joy1);
+    double yaxis = Robot.oi.getY(Robot.oi.joy1, 0.1);
+    double zaxis = Robot.oi.getZ(Robot.oi.joy1, RobotSettings.zthresh);
     Robot.tankDriveSubsystem.PIDRetardedDrive(yaxis, zaxis);
     
   }

@@ -22,7 +22,9 @@ public class SubsystemArmLift extends Subsystem {
   public WPI_VictorSPX liftMotor;
   public Encoder encLift;
 
-  public final double meterPerPulse = 0.00001;
+  public final double pulsesPerRotation = 4000;
+
+  public final double circum = 18;
 
   public SubsystemArmLift(){
     liftMotor = new WPI_VictorSPX (RobotMap.liftMotor_port);
@@ -33,6 +35,12 @@ public class SubsystemArmLift extends Subsystem {
   public void initDefaultCommand() {
     
     setDefaultCommand(new CommandMoveLift());
+  }
+
+
+  public void moveByDistance(double distance)
+  {
+    
   }
 
 

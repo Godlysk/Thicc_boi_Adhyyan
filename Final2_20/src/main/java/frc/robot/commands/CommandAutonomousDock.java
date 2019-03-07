@@ -11,9 +11,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.*;
 import frc.robot.Utils;
+import edu.wpi.first.wpilibj.smartdashboard.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 public class CommandAutonomousDock extends Command {
-  public CommandAutonomousDock() {
+  boolean isSlanted;
+  public CommandAutonomousDock(boolean isSlantedp) {
+    isSlanted = isSlantedp;
     requires(Robot.tankDriveSubsystem);
     requires(Robot.visionSubsystem);
   }
@@ -27,13 +32,16 @@ public class CommandAutonomousDock extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() { 
-    Robot.tankDriveSubsystem.moveToAng(Robot.visionSubsystem.getTargFollowAng(), Robot.oi.getY(Robot.oi.joy1)*RobotSettings.autonomousDockSens);
+    double yaxis =  Robot.oi.getY(Robot.oi.joy1, 0.05)*RobotSettings.autonomousDockSens;
+    double angleToFollow = Robot.visionSubsystem.getTargFollowAng(isSlanted);
+    SmartDashboard.putNumber("angleToFollow", angleToFollow);
+    Robot.tankDriveSubsystem.moveToAng(angleToFollow, yaxis);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return !Robot.oi.joy1.getRawButton(7); //|| ((System.currentTimeMillis() - Robot.visionSubsystem.lastSeenTime) > 300) || Utils.getUltra()<40;//stops when you press 11 or when it stops seeing the target  }
+    return !Robot.oi.joy1.getRawButton(isSlanted?8:7); //|| ((System.currentTimeMillis() - Robot.visionSubsystem.lastSeenTime) > 300) || Utils.getUltra()<40;//stops when you press 11 or when it stops seeing the target  }
   }
   // Called once after isFinished returns true
   @Override
