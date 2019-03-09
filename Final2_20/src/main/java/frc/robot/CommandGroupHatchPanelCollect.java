@@ -35,6 +35,7 @@ public class CommandGroupHatchPanelCollect extends CommandGroup {
     requires(Robot.tankDriveSubsystem);
     requires(Robot.rotateArmSubsystem);
 
+    addSequential(new CommandMoveToDistance(0.3, 15), 0.3);
     addSequential(new CommandRotateArmByAngle(10), 0.5);
     addSequential(new CommandMoveToDistance(0.3, -15), 0.3);
   }
