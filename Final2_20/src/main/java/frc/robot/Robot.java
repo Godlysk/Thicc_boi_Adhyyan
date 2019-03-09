@@ -18,13 +18,8 @@ import frc.robot.RobotLifter.SubsystemRobotLifterForward;
 import frc.robot.RobotLifter.SubsystemRobotLifterUp;
 import frc.robot.subsystems.*;
 
-import java.util.Map;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
-import edu.wpi.first.wpilibj.smartdashboard.*;
-import edu.wpi.first.wpilibj.shuffleboard.*;
-import edu.wpi.first.networktables.NetworkTableEntry;
 
 
 /**

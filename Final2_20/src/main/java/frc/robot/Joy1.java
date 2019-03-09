@@ -7,7 +7,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.*;
 import frc.robot.Robot;
 import frc.robot.Chassis.CommandRetardedDrive;
@@ -15,8 +14,6 @@ import frc.robot.commands.CommandAutonomousDock;
 import frc.robot.commands.CommandTrackServo;
 import frc.robot.Chassis.CommandBrake;
 import frc.robot.Chassis.CommandMoveToDistance;
-
-import frc.robot.commands.*;
 
 public class Joy1 {
     
