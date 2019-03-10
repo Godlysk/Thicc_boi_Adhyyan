@@ -179,24 +179,23 @@ public void PIDRetardedDrive(double yaxis, double zaxis){
   // }
 //-------------------------------------
 
+public double multiplier = 1;
 double i_corr_moveToAng = 0;
-  public void moveToAng(double heading, double v)
-  {
-    double kp = 0.006;//0.004;
-    double ki = 0;//0.00003;
-    double error = Utils.normaliseHeading(heading - Utils.getCleanedHeading());
-    i_corr_moveToAng += error*ki;
-    double correction = i_corr_moveToAng + error*kp;
-    correction = Math.signum(correction)*Math.min(Math.abs(correction), 0.1);
-    // double correction2 = 1 + error/100;
-    // double bound = 1.3;
-    // correction2 = Math.min(correction2, bound);
-    // correction2 = Math.max(correction2, 1/bound);
-    // drive(v*correction2, v/correction2);
-    drive(v+correction, v-correction);
-  }
-
-
+public void moveToAng(double heading, double v){
+  double kp = 0.005;//0.004 + 0.007*Math.abs(v); //0.003 + 0.005*Math.abs(v);/
+  double ki = 0;//0.00003;
+  double error = Utils.normaliseHeading(heading - Utils.getCleanedHeading());
+  i_corr_moveToAng += error*ki;
+  double correction = i_corr_moveToAng + error*kp;
+  correction *= multiplier;
+  //correction = Math.signum(correction)*Math.min(Math.abs(correction), 0.25);
+  // double correction2 = 1 + error/100;
+  // double bound = 1.3;
+  // correction2 = Math.min(correction2, bound);  
+  // correction2 = Math.max(correction2, 1/bound);
+  // drive(v*correction2, v/correction2);
+  drive(v+correction, v-correction);
+}
 
 
 //utility functions 

@@ -14,7 +14,7 @@ import frc.robot.Arm.RotateArm.CommandRotateArmToAngle;
 public class Joy2 {
     Button CommandRotateArmToAngleButton, CommandGroupHatchPanelCollectButton;
     public int grabberOpenButton = 1;
-    public int grabberCloseButton = 2;
+    // public int grabberCloseButton = 2;
     public int grabberLiftDownButton =3;
     public int grabberLiftUpButton = 5;
     public int hatchPanelCollectButton = 4;

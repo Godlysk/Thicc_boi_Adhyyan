@@ -11,12 +11,17 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class CommandSolenoidArm extends Command {
+
+  boolean currentState;
+
   public CommandSolenoidArm() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.solenoidArmSubsystem);
+    currentState = false;
   }
 
   // Called just before this Command runs the first time
+
   @Override
   protected void initialize() {
   }
@@ -24,13 +29,17 @@ public class CommandSolenoidArm extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    boolean openButton = Robot.oi.joy2.getRawButton(Robot.joystick2.grabberOpenButton);
-    boolean closeButton = Robot.oi.joy2.getRawButton(Robot.joystick2.grabberCloseButton);
+    boolean toggleOpenCloseButton = Robot.oi.joy2.getRawButtonPressed(Robot.joystick2.grabberOpenButton);
+    if(toggleOpenCloseButton){
+      currentState = !currentState;
+    }
 
-    if(openButton){
+    if(currentState){
       Robot.solenoidArmSubsystem.open();
-    }else if(closeButton){
+      //set on
+    }else{
       Robot.solenoidArmSubsystem.close();
+      //set off
     }
   }
 

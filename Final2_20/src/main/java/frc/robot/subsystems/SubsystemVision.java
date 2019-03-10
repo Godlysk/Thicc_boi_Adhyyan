@@ -65,11 +65,9 @@ public class SubsystemVision extends Subsystem{
         if(tape1_is_visible || tape2_is_visible){            
             servoAng += Math.abs(error)>2?error*0.02:0;
             camServo.setAngle(servoAng);
-        }
-        else{
+        }else{
             camServo.setAngle(90);
         }
-        
     }
 
 
@@ -100,12 +98,21 @@ public class SubsystemVision extends Subsystem{
         return angle;
     }
 
+    public double distanceTape(){
+        if(tape1_is_visible && tape2_is_visible){
+            return Math.abs(tape1 - tape2);
+        }
+        return -1;
+    }
+
     public double getTargFollowAng(boolean isSlanted){   
         get_angle_to_target();
-        double sensetivity = 3; //if the angle relative to the target are too drastic, decrease this. should be greater than 1 though. 
+        
+        double sensetivity = 3;//3; //if the angle relative to the target are too drastic, decrease this. should be greater than 1 though. 
         double snappedAngle = getAngleSnapping(isSlanted);
-        double temp = sensetivity*Utils.normaliseHeading(-snappedAngle+Utils.getCleanedHeading() + angle_to_target); //main equation. basically takes the absolute heading from the robot to the target and then overshoots in order to become parallel ot the target. 
-        //double temp = sensetivity*(Utils.getCleanedHeading()+ angle_to_target); //main equation. basically takes the absolute heading from the robot to the target and then overshoots in order to become parallel ot the target. 
+        SmartDashboard.putNumber("angle off", -snappedAngle+Utils.getCleanedHeading() + angle_to_target);
+        double angleOffset = -snappedAngle+Utils.getCleanedHeading() + angle_to_target;
+        double temp = sensetivity*Utils.normaliseHeading(angleOffset); //main equation. basically takes the absolute heading from the robot to the target and then overshoots in order to become parallel ot the target. 
         //limit the angle at which the which the robot should move. 
         if (temp>=80){
             temp =  80;
