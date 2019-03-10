@@ -5,17 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.Chassis.*;
-import frc.robot.Arm.RotateArm.*;
+import frc.robot.Robot;
+import frc.robot.Arm.RotateArm.CommandRotateArmByAngle;
+import frc.robot.Chassis.CommandMoveToDistance;
 
-public class CommandGroupHatchPanelCollect extends CommandGroup {
+public class CommandGroupHatchPanelDrop extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public CommandGroupHatchPanelCollect() {
+  public CommandGroupHatchPanelDrop() {
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -32,10 +33,12 @@ public class CommandGroupHatchPanelCollect extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
+
     requires(Robot.tankDriveSubsystem);
     requires(Robot.rotateArmSubsystem);
-    
-    addSequential(new CommandRotateArmByAngle(10), 0.5);
+
+    addSequential(new CommandRotateArmByAngle(-10), 0.5);
     addSequential(new CommandMoveToDistance(0.3, -15), 0.3);
+
   }
 }
