@@ -81,7 +81,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("fusedHeading", Utils.getCleanedHeading());
     
-//Exposure Mode Switching 
+    //Exposure Mode Switching 
     // boolean tempButton = Robot.oi.joy1.getRawButton(Robot.joystick1.expButton);
 
     // if(tempButton && !preExpButton)

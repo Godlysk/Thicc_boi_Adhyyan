@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import frc.robot.RobotMap;
 import edu.wpi.first.wpilibj.Encoder;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 /**
  * Add your docs here.
@@ -19,13 +20,13 @@ public class SubsystemRotateArm extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  public WPI_VictorSPX rotMotor;
+  public WPI_TalonSRX rotMotor;
   public Encoder rotEnc;
 
   public final double meterPerPulse = 0.00001;
 
   public SubsystemRotateArm(){
-    rotMotor = new WPI_VictorSPX (RobotMap.rotateArm_port);
+    rotMotor = new WPI_TalonSRX (RobotMap.rotateArm_port);
     rotEnc = new Encoder(10, 11, false, Encoder.EncodingType.k4X);
   }
 

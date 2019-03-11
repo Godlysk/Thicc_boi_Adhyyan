@@ -8,7 +8,7 @@
 package frc.robot.Arm.ClawArm;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 
@@ -18,8 +18,8 @@ import frc.robot.RobotMap;
 public class SubsystemArmWheels extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  public WPI_VictorSPX shooterMotor1;
-  public WPI_VictorSPX shooterMotor2;
+  public WPI_TalonSRX shooterMotor1;
+  public WPI_TalonSRX shooterMotor2;
   
 
   @Override
@@ -30,8 +30,8 @@ public class SubsystemArmWheels extends Subsystem {
   }
 
   public SubsystemArmWheels() {
-    shooterMotor1 = new WPI_VictorSPX(RobotMap.shooterMotor1);
-    shooterMotor2 = new WPI_VictorSPX(RobotMap.shooterMotor2);
+    shooterMotor1 = new WPI_TalonSRX(RobotMap.shooterMotor1);
+    shooterMotor2 = new WPI_TalonSRX(RobotMap.shooterMotor2);
     shooterMotor2.setInverted(true);
   }
 

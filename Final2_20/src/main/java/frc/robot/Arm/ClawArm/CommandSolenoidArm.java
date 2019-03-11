@@ -29,6 +29,11 @@ public class CommandSolenoidArm extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    nonToggle();
+  }
+
+
+  public void toggle(){
     boolean toggleOpenCloseButton = Robot.oi.joy2.getRawButtonPressed(Robot.joystick2.grabberOpenButton);
     if(toggleOpenCloseButton){
       currentState = !currentState;
@@ -40,6 +45,20 @@ public class CommandSolenoidArm extends Command {
     }else{
       Robot.solenoidArmSubsystem.close();
       //set off
+    }
+  }
+
+  public void nonToggle(){
+
+    boolean open = Robot.oi.joy2.getRawButtonPressed(Robot.joystick2.grabberOpenButton);
+    boolean close = Robot.oi.joy2.getRawButtonPressed(Robot.joystick2.grabberCloseButton);
+
+    if(open){
+      Robot.solenoidArmSubsystem.open();
+    }else if(close){
+      Robot.solenoidArmSubsystem.close();
+    }else{
+      //dont do anything
     }
   }
 

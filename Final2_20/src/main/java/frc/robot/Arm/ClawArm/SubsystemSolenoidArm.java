@@ -32,10 +32,10 @@ public class SubsystemSolenoidArm extends Subsystem {
   }
 
   public void open(){
-    ds.set(Value.kForward);
+    ds.set(Value.kReverse);
   }
 
   public void close(){
-    ds.set(Value.kReverse);
+    ds.set(Value.kForward);
   }
 }
