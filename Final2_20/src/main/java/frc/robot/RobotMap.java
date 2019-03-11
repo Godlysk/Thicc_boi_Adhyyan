@@ -32,19 +32,19 @@ public class RobotMap {
   public static int BL_port = 1;
 
 
-  public static int liftMotor_port = 5;
-  public static int rotateArm_port = 6;
+  public static int liftMotor_port = 11;
+  public static int rotateArm_port = 10;
 
   //subsystemRobotLifterup
-  public static int robotLifterUpMotor1 = 9;
-  public static int robotLifterUpMotor2 = 10;
+  public static int robotLifterUpMotor1 = 6;
+  public static int robotLifterUpMotor2 = 7;
 
   //subsystemRobotLifterForward
-  // public static int robotLifterForwardMotor = 11;
+  // public static int robotLifterForwardMotor = 5;
 
   //shooter motors
-  public static int shooterMotor1 = 7;
-  public static int shooterMotor2 = 8;
+  public static int shooterMotor1 = 8;
+  public static int shooterMotor2 = 9;
   
   public static int pistonPortFirst = 1;
   public static int pistonPortSecond = 4;
