@@ -23,17 +23,16 @@ public class Joy2 {
 
     public int rotateArmToAngleButton = 6;
 
-    public int robotLifterForwardButton = 10;
-    public int robotLifterBackwardButton = 9;
+    public int robotLifterForwardButton = 20;//10;
+    public int robotLifterBackwardButton = 21;// 9;
 
     public int grabberShooterOpen = 11;
     public int grabberShooterClose = 12;
 
     
-    public Joy2() {
-        
+    public Joy2() { 
         CommandRotateArmToAngleButton = new JoystickButton(Robot.oi.joy2, rotateArmToAngleButton);
-        CommandRotateArmToAngleButton.whileHeld(new CommandRotateArmToAngle(30, 0.2, 0.6));
+        CommandRotateArmToAngleButton.whileHeld(new CommandRotateArmToAngle(30, 0.4));
 
         CommandGroupHatchPanelCollectButton = new JoystickButton(Robot.oi.joy2, hatchPanelCollectButton);
         CommandGroupHatchPanelCollectButton.whenReleased(new CommandGroupHatchPanelCollect());

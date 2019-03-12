@@ -30,8 +30,8 @@ public class SubsystemArmWheels extends Subsystem {
   }
 
   public SubsystemArmWheels() {
-    shooterMotor1 = new WPI_TalonSRX(RobotMap.shooterMotor1);
-    shooterMotor2 = new WPI_TalonSRX(RobotMap.shooterMotor2);
+    shooterMotor1 = new WPI_TalonSRX(RobotMap.shooterMotorLeft);
+    shooterMotor2 = new WPI_TalonSRX(RobotMap.shooterMotorRight);
     shooterMotor2.setInverted(true);
   }
 

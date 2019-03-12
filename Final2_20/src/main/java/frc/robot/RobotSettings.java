@@ -7,7 +7,7 @@ public class RobotSettings
 
     public static double acceleration_max = 0.5;
 
-    public static double moveToAngConstants[] = {0.004, 0.006};
+    public static double moveToAngConstants[] = {0.004, 0.004};
     public static double moveToAngFinal;
 
 

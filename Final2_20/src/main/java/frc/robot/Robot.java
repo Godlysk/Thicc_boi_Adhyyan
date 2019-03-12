@@ -103,6 +103,13 @@ public class Robot extends TimedRobot {
   if(oi.joy1.getRawButton(Robot.joystick1.navxReset)){
     Utils.navx.reset();
   } 
+
+  SmartDashboard.putData(rotateArmSubsystem);
+  SmartDashboard.putNumber("Arm Rotate Encoder", rotateArmSubsystem.rotEnc.get());
+  SmartDashboard.putNumber("Arm Rotate Velocity", rotateArmSubsystem.rotMotor.get());
+  if(oi.joy2.getRawButton(10)){
+    rotateArmSubsystem.rotEnc.reset();
+  }
 }
 
 

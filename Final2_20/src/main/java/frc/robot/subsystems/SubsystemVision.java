@@ -197,7 +197,7 @@ public double getAngleToFollow(boolean isSlanted){
 
     double angleToFollow, overshootFactor;
 
-    double steerTillThreshold = 30;
+    double steerTillThreshold = 25;
 
     if(getDistanceBetweenTapes()>steerTillThreshold){
         overshootFactor = 1;

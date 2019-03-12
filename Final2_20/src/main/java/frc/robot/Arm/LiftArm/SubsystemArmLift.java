@@ -33,21 +33,8 @@ public class SubsystemArmLift extends Subsystem {
   }
 
   @Override
-  public void initDefaultCommand() {
-    
+  public void initDefaultCommand() { 
     setDefaultCommand(new CommandMoveLift());
   }
-
-
-  public void moveByDistance(double distance)
-  {
-    
-  }
-
-
-  // public void moveToHeight(double height)  {
-  //   double cur = encLift.get()*meterPerPulse - height;
-  //   double speed = 
-  // }
 
 }

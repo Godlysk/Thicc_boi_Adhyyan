@@ -21,7 +21,7 @@ public class SubsystemSolenoidArm extends Subsystem {
   // here. Call these from Commands.
 
   public DoubleSolenoid ds;
-
+  
   public SubsystemSolenoidArm(){
     ds = new DoubleSolenoid(RobotMap.pistonPortFirst, RobotMap.pistonPortSecond);
   }

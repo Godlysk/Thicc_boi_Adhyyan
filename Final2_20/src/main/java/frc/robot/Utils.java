@@ -8,13 +8,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
 
 public class Utils {
     public static AHRS navx = new AHRS(SPI.Port.kMXP);
-    public static AnalogInput ultra = new AnalogInput(0);
-        
-
-    public static double getUltra(){
-
-        return (ultra.getVoltage()/0.0048)*0.5;
-    }
+    //public static AnalogInput ultra = new AnalogInput(0);
 
     
     public static double normaliseHeading(double angle){
@@ -42,6 +36,8 @@ public class Utils {
     public static double inAbsRange(double value, double lower, double upper){
         double sign = Math.signum(value);
         value = Math.abs(value);
+        lower = Math.abs(lower);
+        upper = Math.abs(upper);
         if(value < lower) value = lower;
         if(value > upper) value = upper;
         return value*sign;

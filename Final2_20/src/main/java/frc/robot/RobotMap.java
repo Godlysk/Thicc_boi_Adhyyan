@@ -43,18 +43,18 @@ public class RobotMap {
   // public static int robotLifterForwardMotor = 5;
 
   //shooter motors
-  public static int shooterMotor1 = 8;
-  public static int shooterMotor2 = 9;
+  public static int shooterMotorLeft = 9;
+  public static int shooterMotorRight = 8;
   
-  public static int pistonPortFirst = 1;
-  public static int pistonPortSecond = 4;
+  public static int pistonPortFirst = 6;
+  public static int pistonPortSecond = 7;
 
   //Encoder Ports
   public static int chassisEncoder_r = 0;
   public static int chassisEncoder_l = 2;
   public static int elevatorEncoder_l = 6;
-  public static int elevatorEncoder_r = 8;
-  public static int rotateArmEncoder = 10;
+  public static int elevatorEncoder_r = 10;
+  public static int rotateArmEncoder = 8;
   public static int liftArmEncoder = 4;
 
 

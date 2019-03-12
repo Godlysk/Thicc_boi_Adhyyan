@@ -5,25 +5,25 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.Arm.RotateArm;
+package frc.robot.Arm.LiftArm;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.Utils;
 
-public class CommandRotateArmToAngle extends Command {
+public class CommandMoveLiftToHeight extends Command {
  
   double encoderCountsPerDegrees = 11.11;
-  double desiredAngle, maximum, curAngle, error, rotateVelocity;
+  double desiredHeight, maximum, curHeight, error, velocity, desired_rotations;
   
 
-  public CommandRotateArmToAngle(double angle, double max) {
+  public CommandMoveLiftToHeight(double height, double max) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
-    requires(Robot.rotateArmSubsystem);
-
-    desiredAngle = angle;
+    requires(Robot.armLiftSubsystem);
+    desiredHeight = height;
+    desired_rotations =  height/Robot.armLiftSubsystem.circum;
     maximum = max;
   }
 
@@ -32,7 +32,7 @@ public class CommandRotateArmToAngle extends Command {
   protected void initialize() {
   }
 
-  double kP = -0.03;
+  double kP = 0.01;
 
   // Called repeatedly when this Command is scheduled to run
 
@@ -40,30 +40,30 @@ public class CommandRotateArmToAngle extends Command {
 
   @Override
   protected void execute() {
+    curHeight = Robot.rotateArmSubsystem.rotEnc.get()/encoderCountsPerDegrees;
 
-    curAngle = Robot.rotateArmSubsystem.rotEnc.get()/encoderCountsPerDegrees;
+    SmartDashboard.putNumber("Lift Arm Height", curHeight);
 
-    SmartDashboard.putNumber("Rotate Arm Angle", curAngle);
-
-    error = desiredAngle - curAngle;
-    rotateVelocity = error * kP;
-    rotateVelocity = Utils.inAbsRange(rotateVelocity, 0.15, 0.25);
-
-    //SmartDashboard.putNumber("Arm Rotate Velocity", rotateVelocity);
-    Robot.rotateArmSubsystem.rotMotor.set(rotateVelocity);
+    error = desiredHeight - curHeight;
+    velocity = error * kP;
+    velocity = Utils.inAbsRange(velocity, 0.1, maximum);
+  
+    SmartDashboard.putNumber("Lift Arm Velocity", velocity);
+    Robot.armLiftSubsystem.liftMotor.set(velocity);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return (Math.abs(error) <= 3);
+    return (Math.abs(error) <= 5);
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.rotateArmSubsystem.rotMotor.set(0);
+    Robot.armLiftSubsystem.liftMotor.set(0);
   }
+
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
