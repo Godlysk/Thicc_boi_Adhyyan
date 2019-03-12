@@ -9,7 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.Robot;
-import frc.robot.Arm.RotateArm.CommandRotateArmByAngle;
+import frc.robot.Arm.RotateArm.CommandRotateArmByTime;
 import frc.robot.Chassis.CommandMoveToDistance;
 
 public class CommandGroupHatchPanelDrop extends CommandGroup {
@@ -37,7 +37,7 @@ public class CommandGroupHatchPanelDrop extends CommandGroup {
     requires(Robot.tankDriveSubsystem);
     requires(Robot.rotateArmSubsystem);
 
-    addSequential(new CommandRotateArmByAngle(-10), 0.5);
+    addSequential(new CommandRotateArmByTime(-0.8, 0.5), 0.5);
     addSequential(new CommandMoveToDistance(0.3, -15), 0.3);
 
   }
