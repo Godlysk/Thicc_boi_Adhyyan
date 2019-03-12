@@ -9,15 +9,17 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.*;
 import frc.robot.commands.CommandGroupHatchPanelCollect;
+import frc.robot.Arm.RotateArm.CommandRotateArmByTime;
 import frc.robot.Arm.RotateArm.CommandRotateArmToAngle;
 
 public class Joy2 {
-    Button CommandRotateArmToAngleButton, CommandGroupHatchPanelCollectButton;
+    Button CommandRotateArmToAngleButton, CommandRotateArmByTimeButton, CommandGroupHatchPanelCollectButton;
     public int grabberOpenButton = 1;
     public int grabberCloseButton = 2;
-    public int grabberLiftDownButton =3;
-    public int grabberLiftUpButton = 5;
-    public int hatchPanelCollectButton = 4;
+    public int grabberLiftUpButton = 3;
+    public int grabberLiftDownButton =5;
+    // public int hatchPanelCollectButton = 4;
+    public int grabberRotateByTimeButton =4;
     public int robotLifterUpButton = 8;
     public int robotLifterDownButton = 7;
 
@@ -34,7 +36,11 @@ public class Joy2 {
         CommandRotateArmToAngleButton = new JoystickButton(Robot.oi.joy2, rotateArmToAngleButton);
         CommandRotateArmToAngleButton.whileHeld(new CommandRotateArmToAngle(30, 0.4));
 
-        CommandGroupHatchPanelCollectButton = new JoystickButton(Robot.oi.joy2, hatchPanelCollectButton);
-        CommandGroupHatchPanelCollectButton.whenReleased(new CommandGroupHatchPanelCollect());
+        // CommandGroupHatchPanelCollectButton = new JoystickButton(Robot.oi.joy2, hatchPanelCollectButton);
+        // CommandGroupHatchPanelCollectButton.whenReleased(new CommandGroupHatchPanelCollect());
+
+        CommandRotateArmByTimeButton = new JoystickButton(Robot.oi.joy2, grabberRotateByTimeButton);
+        CommandRotateArmByTimeButton.whileHeld(new CommandRotateArmByTime(0.5, 0.5));
+
     }
 }
