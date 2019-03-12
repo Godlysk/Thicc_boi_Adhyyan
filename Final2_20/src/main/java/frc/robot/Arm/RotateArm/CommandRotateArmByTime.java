@@ -15,11 +15,11 @@ public class CommandRotateArmByTime extends Command {
 
   Timer t;
   double maxVel, rotateForTime, rotateVelocity, rotationConstant = 0.8;
-  public CommandRotateArmByTime(double vel, double t) {
+  public CommandRotateArmByTime(double max, double t) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.rotateArmSubsystem);
-    rotateVelocity = vel;
+    maxVel = max;
     rotateForTime = t;
   }
 
@@ -35,16 +35,20 @@ public class CommandRotateArmByTime extends Command {
     double timePassed = t.get();
     double timeLeft = rotateForTime - timePassed;
 
-    if(timeLeft < 0.3) {Robot.rotateArmSubsystem.rotMotor.set(0);}
-    else if(timeLeft < 0.5) {Robot.rotateArmSubsystem.rotMotor.set(rotateVelocity/2);}
-    else if(timeLeft > 0.5) {Robot.rotateArmSubsystem.rotMotor.set(rotateVelocity);}
+    double rotateVelocity = timeLeft*rotationConstant;
+    double sign = Math.signum(rotateVelocity);
+    if(Math.abs(rotateVelocity) > maxVel) {rotateVelocity = maxVel;}
+    if(Math.abs(rotateVelocity) <0.1) {rotateVelocity =0.1;}
+    rotateVelocity*= sign;
+    Robot.rotateArmSubsystem.rotMotor.set(rotateVelocity);
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     double timeLeft = rotateForTime - t.get();
-    return(timeLeft <= 0.1);
+    return(timeLeft <= 0.15);
   }
 
   // Called once after isFinished returns true

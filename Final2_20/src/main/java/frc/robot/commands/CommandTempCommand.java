@@ -33,7 +33,7 @@ public class CommandTempCommand extends Command {
     double correction = error*0.008;
     double yaxis = Robot.oi.getY(Robot.oi.joy1, 0.07);
 
-    Robot.tankDriveSubsystem.drive(yaxis*0.4 - correction, 0.4*yaxis + correction);
+    Robot.tankDriveSubsystem.drive(yaxis*0.4 + correction, 0.4*yaxis - correction);
     
   }
 
