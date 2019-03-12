@@ -30,9 +30,13 @@ public class CommandAutonomousDock extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() { 
-    double yaxis =  Robot.oi.getY(Robot.oi.joy1, 0.05)*RobotSettings.autonomousDockSens;
-    double angleToFollow = Robot.visionSubsystem.getTargFollowAng(isSlanted);
+    double yaxis =  Robot.oi.getY(Robot.oi.joy1, 0.05) * RobotSettings.autonomousDockSens;
+    double angleToFollow = Robot.visionSubsystem.getAngleToFollow(isSlanted);
+
+
     SmartDashboard.putNumber("angleToFollow", angleToFollow);
+
+
     Robot.tankDriveSubsystem.moveToAng(angleToFollow, yaxis);
   }
 

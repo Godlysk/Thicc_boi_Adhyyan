@@ -30,10 +30,22 @@ public class Utils {
         return angle;
     }
 
+
+
     public static double getCleanedHeading()
     {
-        double temp = navx.getFusedHeading();
+        double temp = navx.getFusedHeading() - Robot.angleOffset;
         return normaliseHeading(temp);
-        
     }
+
+    //returns a value which is in the range of lower and upper after taking abs
+    public static double inAbsRange(double value, double lower, double upper){
+        double sign = Math.signum(value);
+        value = Math.abs(value);
+        if(value < lower) value = lower;
+        if(value > upper) value = upper;
+        return value*sign;
+      }
+
+
 }

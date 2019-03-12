@@ -27,7 +27,7 @@ public class SubsystemRotateArm extends Subsystem {
 
   public SubsystemRotateArm(){
     rotMotor = new WPI_TalonSRX (RobotMap.rotateArm_port);
-    rotEnc = new Encoder(10, 11, false, Encoder.EncodingType.k4X);
+    rotEnc = new Encoder(RobotMap.rotateArmEncoder, RobotMap.rotateArmEncoder+1, false, Encoder.EncodingType.k4X);
   }
 
   @Override

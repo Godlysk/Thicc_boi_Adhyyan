@@ -10,21 +10,21 @@ package frc.robot.Arm.RotateArm;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.Utils;
 
 public class CommandRotateArmToAngle extends Command {
  
   double encoderCountsPerDegrees = 11.11;
-  double desired, maximum, value, velocity, error;
+  double desiredAngle, maximum, curAngle, error, rotateVelocity;
   
 
-  public CommandRotateArmToAngle(double angle, double vel, double max) {
+  public CommandRotateArmToAngle(double angle, double max) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
     requires(Robot.rotateArmSubsystem);
 
-    desired = angle * encoderCountsPerDegrees;
+    desiredAngle = angle;
     maximum = max;
-    velocity = vel;
   }
 
   // Called just before this Command runs the first time
@@ -32,42 +32,43 @@ public class CommandRotateArmToAngle extends Command {
   protected void initialize() {
   }
 
-  double kP = 0.0;
+  double kP = 0.01;
 
   // Called repeatedly when this Command is scheduled to run
+
+  
+
   @Override
   protected void execute() {
 
-    value = Robot.rotateArmSubsystem.rotEnc.get(); 
+    curAngle = Robot.rotateArmSubsystem.rotEnc.get()/encoderCountsPerDegrees;
 
-    SmartDashboard.putNumber("Encoder get value", value);
+    SmartDashboard.putNumber("Rotate Arm Angle", curAngle);
 
-    error = desired - value;
+    error = desiredAngle - curAngle;
+    rotateVelocity = error * kP;
+    rotateVelocity = Utils.inAbsRange(rotateVelocity, 0.1, maximum);
 
-    if (velocity > maximum) { 
-      velocity = maximum; 
-    } else {
-      velocity += error * kP;
-    }
-
-    Robot.rotateArmSubsystem.rotMotor.set(velocity);
-
+    SmartDashboard.putNumber("Arm Rotate Velocity", rotateVelocity);
+    Robot.rotateArmSubsystem.rotMotor.set(rotateVelocity);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return (Math.abs(error) <= 5*encoderCountsPerDegrees);
+    return (Math.abs(error) <= 5);
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.rotateArmSubsystem.rotMotor.set(0);
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

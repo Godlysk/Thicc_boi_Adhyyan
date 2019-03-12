@@ -55,7 +55,8 @@ public class Robot extends TimedRobot {
   public static PowerDistributionPanel pdp = new PowerDistributionPanel();
 //---------------------------
 
-
+//roboInit
+//---------------------------
   @Override
   public void robotInit() {
     visionSubsystem = new SubsystemVision();
@@ -69,10 +70,15 @@ public class Robot extends TimedRobot {
     oi = new OI();
     joystick1 = new Joy1();
     joystick2 = new Joy2();  
+
+    angleOffset = 0;
   }
+//---------------------------
 
   boolean preExpButton = false;
   boolean ExposureSetting = true;
+
+  public static double angleOffset;
   
   @Override
   public void robotPeriodic() {
