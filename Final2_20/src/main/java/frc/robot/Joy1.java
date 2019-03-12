@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.buttons.*;
 import frc.robot.Robot;
 import frc.robot.Chassis.CommandRetardedDrive;
 import frc.robot.commands.CommandAutonomousDock;
+import frc.robot.commands.CommandTempCommand;
 import frc.robot.commands.CommandTrackServo;
 import frc.robot.Chassis.CommandBrake;
 import frc.robot.Chassis.CommandMoveToDistance;
@@ -19,6 +20,7 @@ public class Joy1 {
     
     Button commandRetardedDriveButton, commandBrakeMoveButton, commandTrackServoButton;
     Button commandMoveSetDistanceButton, commandAutonomousDockButton, commandAutonomousDockSlanted;
+    Button tempButton;
     public int retardedButton = 9;
     public int brakeButton = 1;
     //public int expButton = 10;
@@ -51,14 +53,19 @@ public class Joy1 {
         commandTrackServoButton = new JoystickButton(Robot.oi.joy1, servoTrackButton);
         commandTrackServoButton.whileHeld(new CommandTrackServo());
 
-        commandMoveSetDistanceButton= new JoystickButton(Robot.oi.joy1, moveSetDistance);
-        commandMoveSetDistanceButton.whenPressed(new CommandMoveToDistance(0.3, -200));
+        // commandMoveSetDistanceButton= new JoystickButton(Robot.oi.joy1, moveSetDistance);
+        // commandMoveSetDistanceButton.whenPressed(new CommandMoveToDistance(0.3, -200));
 
         commandAutonomousDockButton= new JoystickButton(Robot.oi.joy1, autonomousDockButton);
         commandAutonomousDockButton.whileHeld(new CommandAutonomousDock(false));
 
         commandAutonomousDockSlanted = new JoystickButton(Robot.oi.joy1, autonomousDockSlantButton);
         commandAutonomousDockSlanted.whileHeld(new CommandAutonomousDock(true));
+
+
+        tempButton = new JoystickButton(Robot.oi.joy1, 11);
+        tempButton.whileHeld(new CommandTempCommand());
+        
     }
 
 }

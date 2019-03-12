@@ -29,7 +29,7 @@ public class SubsystemVision extends Subsystem {
 
 //global variables
 //------------------
-  double tape1, tape2, targX, distance, servoAng, angle_to_target;
+  public double tape1, tape2, targX, distance, servoAng, angle_to_target;
   boolean tape1_is_visible, tape2_is_visible;
   long lastSeenTime;
 
@@ -229,6 +229,8 @@ public double getAngleToFollow(boolean isSlanted){
   }
 //------------------
   
+
+
 
 
 }

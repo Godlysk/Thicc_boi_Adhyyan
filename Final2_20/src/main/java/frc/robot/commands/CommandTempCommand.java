@@ -9,21 +9,31 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotSettings;
 
 public class CommandTempCommand extends Command {
   public CommandTempCommand() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.rotateArmSubsystem);
+    requires(Robot.tankDriveSubsystem);
+    requires(Robot.visionSubsystem);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.visionSubsystem.camServo.setAngle(90);
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.visionSubsystem.getTarget();
+    double error = Robot.visionSubsystem.targX - RobotSettings.center;
+    double correction = error*0.008;
+    double yaxis = Robot.oi.getY(Robot.oi.joy1, 0.07);
+
+    Robot.tankDriveSubsystem.drive(yaxis*0.4 - correction, 0.4*yaxis + correction);
     
   }
 

@@ -2,16 +2,16 @@ package frc.robot;
 
 public class RobotSettings
 {
-    public static double[] ysens = {0.74, 0.3};
-    public static double[] zsens = {1.3, 0.5};
+    public static double[] ysens = {0.65, 0.3};
+    public static double[] zsens = {1.5, 0.5};
 
     public static double acceleration_max = 0.5;
 
-    public static double moveToAngConstants[] = {0.004, 0.004};
+    public static double moveToAngConstants[] = {0.003, 0.004};
     public static double moveToAngFinal;
 
 
-    //deadband
+    //deadbands
     public static double zthresh = 0.08;
 
     public static double zthresh_steer = 0.05;
