@@ -8,7 +8,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.buttons.*;
-import frc.robot.commands.CommandGroupHatchPanelCollect;
 import frc.robot.Arm.RotateArm.CommandRotateArmByTime;
 import frc.robot.Arm.RotateArm.CommandRotateArmToAngle;
 

@@ -14,7 +14,6 @@ import frc.robot.commands.CommandAutonomousDock;
 import frc.robot.commands.CommandTempCommand;
 import frc.robot.commands.CommandTrackServo;
 import frc.robot.Chassis.CommandBrake;
-import frc.robot.Chassis.CommandMoveToDistance;
 
 public class Joy1 {
     
