@@ -30,7 +30,7 @@ public class Joy1 {
     public int navxReset = 12;
     
 
-    public int moveSetDistance = 11;
+    //public int moveSetDistance = 11;
     
     
     public int servoTrackButton = 10;

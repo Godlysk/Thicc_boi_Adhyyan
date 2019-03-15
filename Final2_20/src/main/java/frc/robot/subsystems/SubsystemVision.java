@@ -13,8 +13,10 @@ import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import frc.robot.RobotSettings;
 import frc.robot.Utils;
+import frc.robot.commands.CommandMoveServoJoy;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
+
 
 /**
  * sexy code
@@ -24,7 +26,7 @@ public class SubsystemVision extends Subsystem {
   
   @Override
   public void initDefaultCommand() {
-    
+    setDefaultCommand(new CommandMoveServoJoy());
   }
 
 //global variables
@@ -122,15 +124,15 @@ public class SubsystemVision extends Subsystem {
     double[] snapAngle = {0, 90, 180, 270};
     if(isSlanted) snapAngle = new double[]{30, 150, 210, 330};
     
-    double curHeading = Utils.getCleanedHeading();
-    double angle = snapAngle[0], error = Math.abs(Utils.normaliseHeading(curHeading - snapAngle[0]));
+    double curHeading = Utils.navx.getFusedHeading();
+    double angle = snapAngle[0], smallestError = Math.abs(Utils.normaliseHeading(Math.abs(curHeading - snapAngle[0])));
     for(int i = 1; i < snapAngle.length; i++){
-        if(Math.abs(Utils.normaliseHeading(curHeading - snapAngle[i])) < error){
-            error = Math.abs(Utils.normaliseHeading(curHeading - snapAngle[i]));
+      double temp = Math.abs(Utils.normaliseHeading(Math.abs(curHeading - snapAngle[i])));
+        if(temp < smallestError){
+            smallestError = temp;
             angle = snapAngle[i];
         } 
     }
-    SmartDashboard.putNumber("SnapAngle", angle);
     return angle;
   }
 //------------------
@@ -185,48 +187,50 @@ public class SubsystemVision extends Subsystem {
   // }
 //------------------
 
+
+
 //new function
 //-------------------
-public double getAngleToFollow(boolean isSlanted){
-  
-    Robot.angleOffset = getAngleSnapping(isSlanted);
+  public double getAngleToFollow(boolean isSlanted){
+    
+      Robot.angleOffset = getAngleSnapping(isSlanted);
+
+      get_angle_to_target();
+
+      double angleToFollow, overshootFactor;
+
+      double steerTillThreshold = 30;
+
+      if(getDistanceBetweenTapes()>steerTillThreshold){
+          overshootFactor = 1;
+          RobotSettings.moveToAngFinal = RobotSettings.moveToAngConstants[1];
+      }else{
+          overshootFactor = 4;
+          RobotSettings.moveToAngFinal = RobotSettings.moveToAngConstants[0];
+      }
+
+      SmartDashboard.putNumber("overshootFactor", overshootFactor);
+
+      if(tape1_is_visible || tape2_is_visible){
+          angleToFollow = (Utils.getCleanedHeading() + angle_to_target)*overshootFactor;
+      }else{
+          angleToFollow = Utils.getCleanedHeading();
+      }
+
+      angleToFollow = Math.abs(angleToFollow)>80?Math.signum(angleToFollow)*80:angleToFollow;
 
 
-
-    get_angle_to_target();
-
-    double angleToFollow, overshootFactor;
-
-    double steerTillThreshold = 25;
-
-    if(getDistanceBetweenTapes()>steerTillThreshold){
-        overshootFactor = 1;
-        RobotSettings.moveToAngFinal = RobotSettings.moveToAngConstants[1];
-    }else{
-        overshootFactor = 4;
-        RobotSettings.moveToAngFinal = RobotSettings.moveToAngConstants[0];
-    }
-
-    if(tape1_is_visible || tape2_is_visible){
-        angleToFollow = Utils.normaliseHeading((Utils.getCleanedHeading() + angle_to_target)*overshootFactor);
-    }else{
-        angleToFollow = Utils.getCleanedHeading();
-    }
-
-    angleToFollow = Math.abs(angleToFollow)>80?Math.signum(angleToFollow)*80:angleToFollow;
-
-
-    return angleToFollow;
-}
-//---------------------------
-
-
-
-// time out function
-//------------------
-  public boolean isTimedOut(){
-    return (System.currentTimeMillis()-lastSeenTime)>RobotSettings.last_seen_time_out;
+      return angleToFollow;
   }
+  //---------------------------
+
+
+
+  // time out function
+  //------------------
+    public boolean isTimedOut(){
+      return (System.currentTimeMillis()-lastSeenTime)>RobotSettings.last_seen_time_out;
+    }
 //------------------
   
 

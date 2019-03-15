@@ -86,6 +86,8 @@ public class Robot extends TimedRobot {
 
 
     SmartDashboard.putNumber("fusedHeading", Utils.getCleanedHeading());
+
+    SmartDashboard.putNumber("angeOffset", angleOffset);
     
     //Exposure Mode Switching 
     // boolean tempButton = Robot.oi.joy1.getRawButton(Robot.joystick1.expButton);
@@ -105,10 +107,10 @@ public class Robot extends TimedRobot {
   } 
 
   SmartDashboard.putData(rotateArmSubsystem);
-  SmartDashboard.putNumber("Arm Rotate Encoder", rotateArmSubsystem.rotEnc.get());
-  SmartDashboard.putNumber("Arm Rotate Velocity", rotateArmSubsystem.rotMotor.get());
+  SmartDashboard.putNumber("Arm Rotate Angle", rotateArmSubsystem.getAngle());
+  SmartDashboard.putBoolean("is Navx connected", rotateArmSubsystem.armNavx.isConnected());
   if(oi.joy2.getRawButton(10)){
-    rotateArmSubsystem.rotEnc.reset();
+    rotateArmSubsystem.armNavx.reset();
   }
 }
 
@@ -135,6 +137,7 @@ public class Robot extends TimedRobot {
 //-----------------------
   @Override
   public void autonomousInit() {
+    tankDriveSubsystem.steer_corr = 0;
   }
   
   @Override
@@ -149,7 +152,7 @@ public class Robot extends TimedRobot {
 //-------------------------
   @Override
   public void teleopInit() {
-
+    tankDriveSubsystem.steer_corr = 0;
   }
   
 

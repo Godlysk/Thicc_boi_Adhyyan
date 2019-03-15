@@ -48,7 +48,7 @@ public class SubsystemTankDrive extends Subsystem {
 
 //SteerDrive
 //---------------------------------
-  double steer_corr = 0;
+  public double steer_corr = 0;
   double z_deadband = 0.04;
   public void steerDrive(double yaxis, double zaxis)
   {
@@ -64,6 +64,7 @@ public class SubsystemTankDrive extends Subsystem {
     err = Utils.navx.getRate() - mapAngRate(zaxis);
     double p_corr = 0.31*err;
     steer_corr += err*0.02;
+    if(Math.abs(err)<0.04 && Math.abs(zaxis)<0.02)steer_corr = 0;
     int speedIndex = Robot.oi.joy1.getRawButton(2)?1:0;
     leftSpeed =  yaxis*RobotSettings.ysens[speedIndex] + (-1*(steer_corr + p_corr));
     rightSpeed = yaxis*RobotSettings.ysens[speedIndex] + (steer_corr + p_corr);
@@ -208,6 +209,7 @@ public void moveToAng(double heading, double v){
 
   public void drive(double left, double right)
   {
+    
     FR.set(right);
     BR.set(right);
     FL.set(left);

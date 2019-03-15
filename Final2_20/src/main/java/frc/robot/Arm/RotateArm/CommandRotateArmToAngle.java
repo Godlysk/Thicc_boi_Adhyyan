@@ -16,7 +16,7 @@ public class CommandRotateArmToAngle extends Command {
  
   double encoderCountsPerDegrees = 11.11;
   double desiredAngle, maximum, curAngle, error, rotateVelocity;
-  
+  double deadband = 1.5;
 
   public CommandRotateArmToAngle(double angle, double max) {
     // Use requires() here to declare subsystem dependencies
@@ -30,33 +30,44 @@ public class CommandRotateArmToAngle extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.rotateArmSubsystem.i_corr = 0;
   }
 
-  double kP = -0.03;
+  double kp = 0.03;
 
   // Called repeatedly when this Command is scheduled to run
-
-  
 
   @Override
   protected void execute() {
 
-    curAngle = Robot.rotateArmSubsystem.rotEnc.get()/encoderCountsPerDegrees;
+    curAngle = Robot.rotateArmSubsystem.getAngle();
 
-    SmartDashboard.putNumber("Rotate Arm Angle", curAngle);
+    //SmartDashboard.putNumber("Rotate Arm Angle", curAngle);
+
 
     error = desiredAngle - curAngle;
-    rotateVelocity = error * kP;
-    rotateVelocity = Utils.inAbsRange(rotateVelocity, 0.15, 0.25);
+    Robot.rotateArmSubsystem.i_corr += error * 0.0001;
+    rotateVelocity = error * kp + Robot.rotateArmSubsystem.i_corr;
+    rotateVelocity = Utils.inAbsRange(rotateVelocity, 0.15, maximum);
 
     //SmartDashboard.putNumber("Arm Rotate Velocity", rotateVelocity);
-    Robot.rotateArmSubsystem.rotMotor.set(rotateVelocity);
+    if(!isInDeadband()){
+      Robot.rotateArmSubsystem.rotMotor.set(rotateVelocity);
+    }else{
+      Robot.rotateArmSubsystem.i_corr = 0;
+    }
+  }
+
+
+  public boolean isInDeadband()
+  {
+    return (Math.abs(error) <= deadband);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return (Math.abs(error) <= 3);
+    return isInDeadband();
   }
 
   // Called once after isFinished returns true

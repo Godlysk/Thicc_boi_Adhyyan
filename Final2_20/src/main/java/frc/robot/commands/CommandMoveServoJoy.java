@@ -7,35 +7,41 @@
 
 package frc.robot.commands;
 
+import javax.lang.model.util.ElementScanner6;
+
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.RobotSettings;
+import frc.robot.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class CommandTempCommand extends Command {
-  public CommandTempCommand() {
+
+public class CommandMoveServoJoy extends Command {
+  public CommandMoveServoJoy() {
     // Use requires() here to declare subsystem dependencies
-    requires(Robot.tankDriveSubsystem);
     requires(Robot.visionSubsystem);
+
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.visionSubsystem.camServo.setAngle(90);
 
   }
 
   // Called repeatedly when this Command is scheduled to run
+  double angle = 90;
   @Override
   protected void execute() {
-    Robot.visionSubsystem.getTarget();
-
-    double error = Robot.visionSubsystem.targX - RobotSettings.center;
-    double correction = error*0.007;
-    double yaxis = Robot.oi.getY(Robot.oi.joy1, 0.07);
-
-    Robot.tankDriveSubsystem.drive(yaxis*0.4 + correction, 0.4*yaxis - correction);
     
+    if(Robot.oi.joy1.getPOV() == 270){
+      angle = 180;
+    }else if(Robot.oi.joy1.getPOV() == 90){
+      angle = 0;
+    }else if(Robot.oi.joy1.getPOV() == 0){
+      angle = 90;
+    }
+    Robot.visionSubsystem.camServo.setAngle(angle);
   }
 
   // Make this return true when this Command no longer needs to run execute()

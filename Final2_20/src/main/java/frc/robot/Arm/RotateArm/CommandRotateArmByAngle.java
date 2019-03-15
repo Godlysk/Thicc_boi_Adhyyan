@@ -11,37 +11,42 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 public class CommandRotateArmByAngle extends Command {
+  
+  
+  
   double targetAngle;
   double error;
-  //4000 divided by 360
+
+  double max;
 
   double offset;
-  double encoderCountsPerDegrees = 11.11;
-  public CommandRotateArmByAngle(double desiredAngle) {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+  public CommandRotateArmByAngle(double desiredAngle, double maxSpeed) {
+
     requires(Robot.rotateArmSubsystem);
     targetAngle = desiredAngle;
     offset= 0;
+    max = maxSpeed;
+
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    offset = Robot.rotateArmSubsystem.rotEnc.get();
+    offset = Robot.rotateArmSubsystem.getAngle();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    double actual = (Robot.rotateArmSubsystem.rotEnc.get() - offset)/encoderCountsPerDegrees;
+
+    double actual = Robot.rotateArmSubsystem.getAngle() - offset;
     error = targetAngle - actual;
     double turningConstant = 0.03;
     double turningSpeed = error * turningConstant; 
-    if(turningSpeed >= 0.6) {
-      turningSpeed = 0.6;
-    }else if(turningSpeed <= -0.6){
-      turningSpeed = -0.6;
+    if(turningSpeed >= max) {
+      turningSpeed = max;
+    }else if(turningSpeed <= -max){
+      turningSpeed = -max;
     }
     Robot.rotateArmSubsystem.rotMotor.set(turningSpeed);
   }
@@ -49,7 +54,7 @@ public class CommandRotateArmByAngle extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return (Math.abs(error) <= 4);
+    return (Math.abs(error) <= 3);
   }
 
   // Called once after isFinished returns true
