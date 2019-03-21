@@ -7,9 +7,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.buttons.*;
-import frc.robot.Arm.RotateArm.CommandRotateArmByTime;
 import frc.robot.Arm.RotateArm.CommandRotateArmToAngle;
 
 public class Joy2 {
@@ -19,21 +17,16 @@ public class Joy2 {
     public int grabberCloseButton = 2;
     public int grabberLiftUpButton = 8;
     public int grabberLiftDownButton =7;
-    // public int hatchPanelCollectButton = 4;
-    //public int grabberRotateByTimeButton =4;
-    public int robotLifterUpButton = 13;
-    public int robotLifterDownButton = 14;
 
+ 
+
+    public int exposureButton = 10;
     public int hatchHeightButton = 5;
     public int cargoCollectionHieghtButton = 3;
     public int cargoRocketHeightbutton = 4;
     public int cargoShipHeightButton = 6;
 
     public int overrideArm = 9;
-
-
-    public int robotLifterForwardButton = 20;//10;
-    public int robotLifterBackwardButton = 21;// 9;
 
     public int grabberShooterOpen = 12;
     public int grabberShooterClose = 11;

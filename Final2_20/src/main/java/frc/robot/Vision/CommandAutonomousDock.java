@@ -5,47 +5,49 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.RobotLifter;
-
+package frc.robot.Vision;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class CommandRobotLifterForward extends Command {
-  public CommandRobotLifterForward() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-    requires(Robot.lifterForwardSubsystem);
+
+public class CommandAutonomousDock extends Command {
+  boolean isSlanted;
+  public CommandAutonomousDock(boolean isSlantedp) {
+    isSlanted = isSlantedp;
+    requires(Robot.tankDriveSubsystem);
+    requires(Robot.visionSubsystem);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() {
+  protected void execute() { 
+    double yaxis =  Robot.oi.getY(Robot.oi.joy1, 0.05) * RobotSettings.autonomousDockSens;
+    double angleToFollow = Robot.visionSubsystem.getAngleToFollow(isSlanted);
 
-    Boolean forwardButton = Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterForwardButton);
-    Boolean backwardButton = Robot.oi.joy2.getRawButton(Robot.joystick2.robotLifterBackwardButton);
-    if(forwardButton) {
-      Robot.lifterForwardSubsystem.drive(0.5);
-    }else if(backwardButton) {
-      Robot.lifterForwardSubsystem.drive(-0.5);
-    }else {
-      Robot.lifterForwardSubsystem.drive(0);
-    }
+
+    SmartDashboard.putNumber("angleToFollow", angleToFollow);
+
+
+    Robot.tankDriveSubsystem.moveToAng(angleToFollow, yaxis);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return !Robot.oi.joy1.getRawButton(isSlanted?8:7); //|| ((System.currentTimeMillis() - Robot.visionSubsystem.lastSeenTime) > 300) || Utils.getUltra()<40;//stops when you press 11 or when it stops seeing the target  }
   }
-
   // Called once after isFinished returns true
   @Override
   protected void end() {
+    Robot.tankDriveSubsystem.drive(0,0);
   }
 
   // Called when another command which requires one or more of the same

@@ -5,14 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+package frc.robot.Vision;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.RobotSettings;
+import frc.robot.Utils;
 
-public class CommandTrackServo extends Command {
-  public CommandTrackServo() {
+public class CommandVisionMove extends Command {
+  public CommandVisionMove() {
     // Use requires() here to declare subsystem dependencies
+    requires(Robot.tankDriveSubsystem);
     requires(Robot.visionSubsystem);
   }
 
@@ -20,21 +23,27 @@ public class CommandTrackServo extends Command {
   @Override
   protected void initialize() {
     Robot.visionSubsystem.camServo.setAngle(90);
-  }
 
+  }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    //Robot.visionSubsystem.trackServo();
-    //System.out.println("LMAO");
-    Robot.visionSubsystem.camServo.setAngle(90);
+    Robot.visionSubsystem.getTarget();
+    
+    double error = Robot.visionSubsystem.targX - RobotSettings.center;
+    double correction = error*0.006;
+    double yaxis = Robot.oi.getY(Robot.oi.joy1, 0.07);
+
+    correction = Utils.inAbsRange(correction, 0, 0.3);
+
+    Robot.tankDriveSubsystem.drive(yaxis*0.4 + correction, 0.4*yaxis - correction);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return !Robot.oi.joy1.getRawButton(Robot.joystick1.servoTrackButton);
+    return false;
   }
 
   // Called once after isFinished returns true

@@ -5,15 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystems;
-
+package frc.robot.Vision;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.smartdashboard.*;
 
 import frc.robot.RobotSettings;
 import frc.robot.Utils;
-import frc.robot.commands.CommandMoveServoJoy;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 
@@ -60,6 +58,11 @@ public class SubsystemVision extends Subsystem {
 
 
 
+public boolean bothTapesVis(){
+  getTarget();
+  return tape1_is_visible && tape2_is_visible;
+}
+
 //get target
 //------------------
   public void getTarget(){
@@ -75,10 +78,10 @@ public class SubsystemVision extends Subsystem {
 
     double temp2 = SmartDashboard.getNumberArray("tape2", defaultArray)[0];
     if(temp2!=-1){
-        tape2 = temp2;
-        tape1_is_visible = true;
+      tape2 = temp2;
+      tape1_is_visible = true;
     }else{
-        tape2_is_visible = false;
+      tape2_is_visible = false;
     }
 
     if(tape1_is_visible || tape2_is_visible){
@@ -223,8 +226,6 @@ public class SubsystemVision extends Subsystem {
       return angleToFollow;
   }
   //---------------------------
-
-
 
   // time out function
   //------------------

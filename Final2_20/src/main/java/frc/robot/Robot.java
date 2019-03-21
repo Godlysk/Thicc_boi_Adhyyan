@@ -8,15 +8,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Arm.ClawArm.*;
 import frc.robot.Arm.LiftArm.*;
 import frc.robot.Arm.RotateArm.*;
 import frc.robot.Chassis.*;
-import frc.robot.RobotLifter.SubsystemRobotLifterForward;
-import frc.robot.RobotLifter.SubsystemRobotLifterUp;
-import frc.robot.subsystems.*;
+import frc.robot.Vision.*;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -31,26 +30,21 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
  */
 public class Robot extends TimedRobot {
 
-//instantiating all subsystems
+//declaring all subsystems
 //---------------------------
   public static SubsystemTankDrive tankDriveSubsystem;
-  public static OI oi;
   public static SubsystemVision utilvisionSubsystem;
   public static SubsystemVision visionSubsystem;
   public static SubsystemArmLift armLiftSubsystem;
   public static SubsystemRotateArm rotateArmSubsystem;
   public static SubsystemSolenoidArm solenoidArmSubsystem;
-  public static SubsystemRobotLifterUp lifterUpSubsystem;
-  public static SubsystemRobotLifterForward lifterForwardSubsystem;
   public static SubsystemArmWheels armShooterWheels;
+
+  public static OI oi;
   public static Joy1 joystick1;
   public static Joy2 joystick2;
 
-
-  
-
   public static NetworkTable table;
-
 
   public static PowerDistributionPanel pdp = new PowerDistributionPanel();
 //---------------------------
@@ -64,9 +58,8 @@ public class Robot extends TimedRobot {
     armLiftSubsystem = new SubsystemArmLift();
     rotateArmSubsystem = new SubsystemRotateArm();
     solenoidArmSubsystem = new SubsystemSolenoidArm();
-    lifterUpSubsystem = new SubsystemRobotLifterUp();
     armShooterWheels = new SubsystemArmWheels();
-    lifterForwardSubsystem = new SubsystemRobotLifterForward(); 
+
     oi = new OI();
     joystick1 = new Joy1();
     joystick2 = new Joy2();  
@@ -75,62 +68,44 @@ public class Robot extends TimedRobot {
   }
 //---------------------------
 
-  boolean preExpButton = false;
-  boolean ExposureSetting = true;
-
   public static double angleOffset;
   
   @Override
   public void robotPeriodic() {
 
+    //Exposure Mode Switching 
+    //-----------------------
+    if(oi.joy2.getRawButton(joystick2.exposureButton)){
+      SmartDashboard.putNumber("ExpAuto", 1.00);
+    }else{
+      SmartDashboard.putNumber("ExpAuto", 0.00);
+    }
+    //-----------------------
 
 
+    SmartDashboard.putBoolean("Tapes Visible?", visionSubsystem.bothTapesVis());
+
+    SmartDashboard.putData(visionSubsystem);
+    SmartDashboard.putData(rotateArmSubsystem);
+
+    SmartDashboard.putNumber("Arm Rotate Angle", rotateArmSubsystem.getAngle());
+    SmartDashboard.putBoolean("Arm Navx connected", rotateArmSubsystem.armNavx.isConnected());
+    SmartDashboard.putBoolean("Chassis Navx connected", Utils.navx.isConnected());
+    SmartDashboard.putBoolean("Arm Open", solenoidArmSubsystem.ds.get() == Value.kForward);
     SmartDashboard.putNumber("fusedHeading", Utils.getCleanedHeading());
 
-    SmartDashboard.putNumber("angeOffset", angleOffset);
-    
-    //Exposure Mode Switching 
-    // boolean tempButton = Robot.oi.joy1.getRawButton(Robot.joystick1.expButton);
-
-    // if(tempButton && !preExpButton)
-    // {
-    //   ExposureSetting = !ExposureSetting;
-    // }
-    // preExpButton = tempButton;
-
-  
-  //visionSubsystem.getAngleSnapping(false);
-
-  SmartDashboard.putData(visionSubsystem);
-  if(oi.joy1.getRawButton(Robot.joystick1.navxReset)){
-    Utils.navx.reset();
-  } 
-
-  SmartDashboard.putData(rotateArmSubsystem);
-  SmartDashboard.putNumber("Arm Rotate Angle", rotateArmSubsystem.getAngle());
-  SmartDashboard.putBoolean("is Navx connected", rotateArmSubsystem.armNavx.isConnected());
-  if(oi.joy2.getRawButton(10)){
-    rotateArmSubsystem.armNavx.reset();
-  }
 }
-
-
 
 //disabled period
 //-----------------------
   @Override
   public void disabledInit() {
-    
   }
-
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
   }
 //-----------------------
-
-  
-
 
 
 //autonomous period

@@ -46,8 +46,9 @@ public class RobotMap {
   public static int shooterMotorLeft = 9;
   public static int shooterMotorRight = 8;
   
+  //PCM Ports
   public static int pistonPortFirst = 6;
-  public static int pistonPortSecond = 7;
+  public static int pistonPortSecond = 4;
 
   //Encoder Ports
   public static int chassisEncoder_r = 0;

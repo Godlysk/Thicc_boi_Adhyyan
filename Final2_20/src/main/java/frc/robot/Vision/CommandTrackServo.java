@@ -5,50 +5,40 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
-
+package frc.robot.Vision;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
-import frc.robot.*;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
-public class CommandAutonomousDock extends Command {
-  boolean isSlanted;
-  public CommandAutonomousDock(boolean isSlantedp) {
-    isSlanted = isSlantedp;
-    requires(Robot.tankDriveSubsystem);
+public class CommandTrackServo extends Command {
+  public CommandTrackServo() {
+    // Use requires() here to declare subsystem dependencies
     requires(Robot.visionSubsystem);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-
+    Robot.visionSubsystem.camServo.setAngle(90);
   }
+
 
   // Called repeatedly when this Command is scheduled to run
   @Override
-  protected void execute() { 
-    double yaxis =  Robot.oi.getY(Robot.oi.joy1, 0.05) * RobotSettings.autonomousDockSens;
-    double angleToFollow = Robot.visionSubsystem.getAngleToFollow(isSlanted);
-
-
-    SmartDashboard.putNumber("angleToFollow", angleToFollow);
-
-
-    Robot.tankDriveSubsystem.moveToAng(angleToFollow, yaxis);
+  protected void execute() {
+    //Robot.visionSubsystem.trackServo();
+    //System.out.println("LMAO");
+    Robot.visionSubsystem.camServo.setAngle(90);
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return !Robot.oi.joy1.getRawButton(isSlanted?8:7); //|| ((System.currentTimeMillis() - Robot.visionSubsystem.lastSeenTime) > 300) || Utils.getUltra()<40;//stops when you press 11 or when it stops seeing the target  }
+    return !Robot.oi.joy1.getRawButton(Robot.joystick1.servoTrackButton);
   }
+
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.tankDriveSubsystem.drive(0,0);
   }
 
   // Called when another command which requires one or more of the same

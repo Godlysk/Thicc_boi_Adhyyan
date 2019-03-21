@@ -10,32 +10,24 @@ package frc.robot;
 import edu.wpi.first.wpilibj.buttons.*;
 import frc.robot.Robot;
 import frc.robot.Chassis.CommandRetardedDrive;
-import frc.robot.commands.CommandAutonomousDock;
-import frc.robot.commands.CommandTempCommand;
-import frc.robot.commands.CommandTrackServo;
+import frc.robot.Vision.*;
 import frc.robot.Chassis.CommandBrake;
 
 public class Joy1 {
     
     Button commandRetardedDriveButton, commandBrakeMoveButton, commandTrackServoButton;
     Button commandMoveSetDistanceButton, commandAutonomousDockButton, commandAutonomousDockSlanted;
-    Button tempButton;
+    Button commandAutoAlignButton;
+
     public int retardedButton = 9;
     public int brakeButton = 1;
-    //public int expButton = 10;
-    public int frontRobotLifterUpButton = 5;
-    public int frontRobotLifterDownButton = 3;
-    public int backRobotLifterUpButton = 6;
-    public int backRobotLifterDownButton = 4;
-    public int navxReset = 12;
-    
 
-    //public int moveSetDistance = 11;
-    
-    
+    public int navxResetButton = 12;
+
     public int servoTrackButton = 10;
-    public int autonomousDockButton = 7;
-    public int autonomousDockSlantButton = 8; 
+
+    public int autoAlignButton = 7;
+
     
 
     public Joy1() {
@@ -55,15 +47,14 @@ public class Joy1 {
         // commandMoveSetDistanceButton= new JoystickButton(Robot.oi.joy1, moveSetDistance);
         // commandMoveSetDistanceButton.whenPressed(new CommandMoveToDistance(0.3, -200));
 
-        commandAutonomousDockButton= new JoystickButton(Robot.oi.joy1, autonomousDockButton);
-        commandAutonomousDockButton.whileHeld(new CommandAutonomousDock(false));
+        // commandAutonomousDockButton= new JoystickButton(Robot.oi.joy1, autonomousDockButton);
+        // commandAutonomousDockButton.whileHeld(new CommandAutonomousDock(false));
 
-        commandAutonomousDockSlanted = new JoystickButton(Robot.oi.joy1, autonomousDockSlantButton);
-        commandAutonomousDockSlanted.whileHeld(new CommandAutonomousDock(true));
+        // commandAutonomousDockSlanted = new JoystickButton(Robot.oi.joy1, autonomousDockSlantButton);
+        // commandAutonomousDockSlanted.whileHeld(new CommandAutonomousDock(true));
 
-
-        tempButton = new JoystickButton(Robot.oi.joy1, 11);
-        tempButton.whileHeld(new CommandTempCommand());
+        commandAutoAlignButton = new JoystickButton(Robot.oi.joy1, autoAlignButton);
+        commandAutoAlignButton.whileHeld(new CommandVisionMove());
         
     }
 
