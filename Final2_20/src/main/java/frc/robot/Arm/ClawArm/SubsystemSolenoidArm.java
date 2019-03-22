@@ -10,6 +10,7 @@ package frc.robot.Arm.ClawArm;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import frc.robot.RobotMap;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 
@@ -21,11 +22,12 @@ public class SubsystemSolenoidArm extends Subsystem {
   // here. Call these from Commands.
 
   public DoubleSolenoid ds;
-  
+  public Compressor comp;
   public SubsystemSolenoidArm(){
     ds = new DoubleSolenoid(RobotMap.pistonPortFirst, RobotMap.pistonPortSecond);
+    comp = new Compressor();
+    comp.setClosedLoopControl(true);
   }
-
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new CommandSolenoidArm());

@@ -46,7 +46,6 @@ public class Robot extends TimedRobot {
 
   public static NetworkTable table;
 
-  public static PowerDistributionPanel pdp = new PowerDistributionPanel();
 //---------------------------
 
 //roboInit
@@ -87,7 +86,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putData(visionSubsystem);
     SmartDashboard.putData(rotateArmSubsystem);
-
+    SmartDashboard.putData(solenoidArmSubsystem.comp);
     SmartDashboard.putNumber("Arm Rotate Angle", rotateArmSubsystem.getAngle());
     SmartDashboard.putBoolean("Arm Navx connected", rotateArmSubsystem.armNavx.isConnected());
     SmartDashboard.putBoolean("Chassis Navx connected", Utils.navx.isConnected());

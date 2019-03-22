@@ -34,10 +34,12 @@ public class Joy2 {
     
     //arm navx values
     public double armAngleOffset = 0;
-    public double HatchHeight = -38 + armAngleOffset;
-    public double CargoCollectionHeight = 9 + armAngleOffset;
-    public double CargoRocketHeight = -25 + armAngleOffset;
-    public double CargoShipHeight = 13 + armAngleOffset;
+
+
+    public double HatchHeight = 60 + armAngleOffset;
+    public double CargoCollectionHeight = 0 + armAngleOffset;
+    public double CargoRocketHeight = 40 + armAngleOffset;
+    public double CargoShipHeight = -10 + armAngleOffset;
     public double armVel = 0.4;
 
     public Joy2() { 
