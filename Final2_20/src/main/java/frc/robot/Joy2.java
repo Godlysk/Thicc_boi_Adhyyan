@@ -17,7 +17,6 @@ public class Joy2 {
     public int grabberCloseButton = 2;
     public int grabberLiftUpButton = 8;
     public int grabberLiftDownButton =7;
-
  
 
     public int exposureButton = 10;
@@ -26,11 +25,10 @@ public class Joy2 {
     public int cargoRocketHeightbutton = 4;
     public int cargoShipHeightButton = 6;
 
-    public int overrideArm = 9;
-
     public int grabberShooterOpen = 12;
     public int grabberShooterClose = 11;
 
+    public int armRotateNegativeBoostButton = 9;
     
     //arm navx values
     public double armAngleOffset = 0;

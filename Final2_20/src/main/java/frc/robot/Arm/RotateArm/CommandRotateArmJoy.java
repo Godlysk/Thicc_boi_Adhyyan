@@ -25,17 +25,20 @@ public class CommandRotateArmJoy extends Command {
   @Override
   protected void execute() {
     double yaxis = Robot.oi.getY(Robot.oi.joy2, 0) * 0.7;
-
-    double upperbound = 0.15, lowerbound = 0.04;
-    
-    if(Math.abs(yaxis)<lowerbound){
-      yaxis = 0;
+    boolean negativeBoost = Robot.oi.joy2.getRawButton(Robot.joystick2.armRotateNegativeBoostButton);
+    if(negativeBoost){
+      yaxis *= 0.4;
     }
+    
+    //double upperbound = 0.07, lowerbound = 0.04;
+    // if(Math.abs(yaxis)<lowerbound){
+    //   yaxis = 0;
+    // }
     // else if(yaxis>=lowerbound && yaxis<upperbound){
     //   yaxis = upperbound;
     // }
     // else if(yaxis<-lowerbound && yaxis>-upperbound){
-    //   yaxis = upperbound;
+    //   yaxis = -upperbound;
     // }
 
     

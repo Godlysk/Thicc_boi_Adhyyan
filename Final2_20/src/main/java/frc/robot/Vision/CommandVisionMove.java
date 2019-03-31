@@ -14,7 +14,6 @@ import frc.robot.Utils;
 
 public class CommandVisionMove extends Command {
   public CommandVisionMove() {
-    // Use requires() here to declare subsystem dependencies
     requires(Robot.tankDriveSubsystem);
     requires(Robot.visionSubsystem);
   }
@@ -22,8 +21,6 @@ public class CommandVisionMove extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    Robot.visionSubsystem.camServo.setAngle(90);
-
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -32,6 +29,7 @@ public class CommandVisionMove extends Command {
     Robot.visionSubsystem.getTarget();
     
     double error = Robot.visionSubsystem.targX - RobotSettings.center;
+    if(Math.abs(error) < 3) error = 0;
     double correction = error*0.006;
     double yaxis = Robot.oi.getY(Robot.oi.joy1, 0.07);
 

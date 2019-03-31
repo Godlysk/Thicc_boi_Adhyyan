@@ -17,6 +17,12 @@ import frc.robot.Arm.RotateArm.*;
 import frc.robot.Chassis.*;
 import frc.robot.Vision.*;
 
+import edu.wpi.first.wpilibj.command.Subsystem;
+
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
@@ -46,6 +52,10 @@ public class Robot extends TimedRobot {
 
   public static NetworkTable table;
 
+  public static Compressor compressor;
+
+  public static PowerDistributionPanel pdp;
+  public static UsbCamera usb;
 //---------------------------
 
 //roboInit
@@ -58,11 +68,11 @@ public class Robot extends TimedRobot {
     rotateArmSubsystem = new SubsystemRotateArm();
     solenoidArmSubsystem = new SubsystemSolenoidArm();
     armShooterWheels = new SubsystemArmWheels();
-
+    pdp = new PowerDistributionPanel();
     oi = new OI();
     joystick1 = new Joy1();
-    joystick2 = new Joy2();  
-
+    joystick2 = new Joy2();
+    usb = CameraServer.getInstance().startAutomaticCapture(); 
     angleOffset = 0;
   }
 //---------------------------
@@ -71,13 +81,13 @@ public class Robot extends TimedRobot {
   
   @Override
   public void robotPeriodic() {
-
+  
     //Exposure Mode Switching 
     //-----------------------
     if(oi.joy2.getRawButton(joystick2.exposureButton)){
-      SmartDashboard.putNumber("ExpAuto", 1.00);
-    }else{
       SmartDashboard.putNumber("ExpAuto", 0.00);
+    }else{
+      SmartDashboard.putNumber("ExpAuto", 1.00);
     }
     //-----------------------
 
@@ -86,7 +96,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putData(visionSubsystem);
     SmartDashboard.putData(rotateArmSubsystem);
-    SmartDashboard.putData(solenoidArmSubsystem.comp);
+    //SmartDashboard.putData(compressor);
     SmartDashboard.putNumber("Arm Rotate Angle", rotateArmSubsystem.getAngle());
     SmartDashboard.putBoolean("Arm Navx connected", rotateArmSubsystem.armNavx.isConnected());
     SmartDashboard.putBoolean("Chassis Navx connected", Utils.navx.isConnected());

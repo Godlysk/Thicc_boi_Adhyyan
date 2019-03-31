@@ -24,7 +24,6 @@ public class SubsystemVision extends Subsystem {
   
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new CommandMoveServoJoy());
   }
 
 //global variables

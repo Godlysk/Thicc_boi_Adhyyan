@@ -3,7 +3,7 @@ package frc.robot;
 public class RobotSettings
 {
     public static double[] ysens = {0.65, 0.65};
-    public static double[] zsens = {1.5, 1.1};
+    public static double[] zsens = {1.5, 0.8};
 
     public static double acceleration_max = 0.5;
 

@@ -22,12 +22,13 @@ public class SubsystemSolenoidArm extends Subsystem {
   // here. Call these from Commands.
 
   public DoubleSolenoid ds;
-  public Compressor comp;
+  //public Compressor comp;
   public SubsystemSolenoidArm(){
     ds = new DoubleSolenoid(RobotMap.pistonPortFirst, RobotMap.pistonPortSecond);
-    comp = new Compressor();
-    comp.setClosedLoopControl(true);
+    //comp = new Compressor();
+    //comp.setClosedLoopControl(true);
   }
+  
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new CommandSolenoidArm());
